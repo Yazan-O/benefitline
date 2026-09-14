@@ -178,6 +178,8 @@ python deploy/deploy.py                      # DynamoDB, runtime, Lambda Functio
 
 Live demo: https://2rngqllksv5sxof5hp55ekaowi0lsvzw.lambda-url.us-east-1.on.aws/
 
+Code: https://github.com/Yazan-O/benefitline (MIT)
+
 Built for the **AWS Agents for Humans** hackathon, Good Neighbor track.
 
 ## License

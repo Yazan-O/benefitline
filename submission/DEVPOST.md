@@ -218,7 +218,7 @@ is uploaded and no account is needed.
 **Run locally, no AWS account, no build step:**
 
 ```
-git clone <repo>
+git clone https://github.com/Yazan-O/benefitline.git
 cd benefitline
 pip install -r requirements.txt
 python -m http.server 8000 --directory web
