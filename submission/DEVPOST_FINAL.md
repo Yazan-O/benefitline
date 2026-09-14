@@ -64,11 +64,11 @@ python, strands-agents, strands-agents-tools, strands-evals, amazon-bedrock, cla
 
 ## Image gallery
 
-1. `submission/thumbnail.png` — Benefitline project thumbnail.
-2. `submission/architecture.png` — Architecture: Lambda Function URL, AgentCore Runtime, tier router, Strands Graph, DynamoDB, guard hooks.
-3. `submission/media/hero_phone.png` — Benefitline on a phone: benefit results with the statute link under each amount.
-4. `submission/media/qr.png` — QR code for the live demo, works from any phone camera.
-5. `submission/media/flow.gif` — One full session: intake questions, engine results with rule links, and a guard denying a tool call that carried an identifier.
+1. `submission/thumbnail.png`: Benefitline project thumbnail.
+2. `submission/architecture.png`: Architecture: Lambda Function URL, AgentCore Runtime, tier router, Strands Graph, DynamoDB, guard hooks.
+3. `submission/media/hero_phone.png`: Benefitline on a phone: benefit results with the statute link under each amount.
+4. `submission/media/qr.png`: QR code for the live demo, works from any phone camera.
+5. `submission/media/flow.gif`: One full session: intake questions, engine results with rule links, and a guard denying a tool call that carried an identifier.
 
 ## Video demo link
 
