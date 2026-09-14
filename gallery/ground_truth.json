@@ -1,0 +1,1281 @@
+{
+  "engine": "policyengine-us",
+  "engine_version": "2.0.4",
+  "cases": {
+    "case1_single_mother_two_kids": {
+      "case_id": "case1_single_mother_two_kids",
+      "state": "OK",
+      "year": 2026,
+      "engine": "policyengine-us",
+      "engine_version": "2.0.4",
+      "programs": {
+        "snap": {
+          "amount": 632.0,
+          "unit": "USD/month",
+          "eligible": true,
+          "label": "SNAP (food)",
+          "variable": "snap",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/7/2017#a"
+          ]
+        },
+        "wic": {
+          "amount": 59.8,
+          "unit": "USD/month",
+          "eligible": true,
+          "eligible_members": [
+            2
+          ],
+          "note": "Conditional: a WIC clinic must find nutritional risk (7 CFR 246.7(e)); the engine assumes it.",
+          "per_member": [
+            0.0,
+            0.0,
+            59.8
+          ],
+          "label": "WIC (women, infants, children)",
+          "variable": "wic",
+          "rules": [
+            "https://fns-prod.azureedge.net/sites/default/files/resource-files/WICPC2018FoodPackage-Summary.pdf#page=2",
+            "https://www.law.cornell.edu/cfr/text/7/246.7",
+            "https://www.law.cornell.edu/cfr/text/7/246.10",
+            "https://www.fns.usda.gov/wic/food-packages"
+          ]
+        },
+        "medicaid": {
+          "eligible": true,
+          "eligible_members": [
+            0,
+            1,
+            2
+          ],
+          "amount": null,
+          "unit": null,
+          "label": "Medicaid (SoonerCare)",
+          "variable": "is_medicaid_eligible",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/42/1396a#a_10",
+            "https://www.kff.org/racial-equity-and-health-policy/fact-sheet/key-facts-on-health-coverage-of-immigrants"
+          ]
+        },
+        "tanf": {
+          "amount": 0.0,
+          "unit": "USD/month",
+          "eligible": false,
+          "label": "TANF (cash)",
+          "variable": "ok_tanf",
+          "rules": [
+            "https://www.law.cornell.edu/regulations/oklahoma/OAC-340-10-3-59"
+          ]
+        },
+        "eitc": {
+          "amount": 7316.0,
+          "unit": "USD/year",
+          "eligible": true,
+          "label": "Earned Income Tax Credit (federal)",
+          "variable": "eitc",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/26/32#a"
+          ]
+        },
+        "ok_eitc": {
+          "amount": 269.57,
+          "unit": "USD/year",
+          "eligible": true,
+          "label": "Oklahoma EITC",
+          "variable": "ok_eitc",
+          "rules": [
+            "https://oklahoma.gov/content/dam/ok/en/tax/documents/forms/individuals/current/511-EIC.pdf",
+            "https://law.justia.com/codes/oklahoma/title-68/section-68-2357-43/",
+            "https://www.oklegislature.gov/cf_pdf/2021-22%20ENR/hB/HB2962%20ENR.PDF"
+          ]
+        },
+        "ctc": {
+          "amount": 4400.0,
+          "unit": "USD/year",
+          "eligible": true,
+          "label": "Child Tax Credit (federal)",
+          "variable": "ctc",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/26/24#a"
+          ]
+        },
+        "refundable_ctc": {
+          "amount": 2901.0,
+          "unit": "USD/year",
+          "eligible": true,
+          "label": "Child Tax Credit, refundable part",
+          "variable": "refundable_ctc",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/26/24#d"
+          ]
+        },
+        "ssi": {
+          "amount": 0.0,
+          "unit": "USD/year",
+          "eligible": false,
+          "label": "SSI",
+          "variable": "ssi",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/42/1382"
+          ]
+        }
+      },
+      "snap_detail": {
+        "snap_gross_income": 1820.0,
+        "snap_net_income": 509.0,
+        "snap_max_allotment": 785.0,
+        "snap_standard_deduction": 209.0,
+        "snap_earned_income_deduction": 364.0,
+        "snap_excess_shelter_expense_deduction": 738.5,
+        "snap_excess_medical_expense_deduction": 0.0,
+        "snap_utility_allowance": 412.0,
+        "snap_expected_contribution": 153.0,
+        "meets_snap_gross_income_test": true,
+        "meets_snap_net_income_test": true
+      },
+      "snap_detail_errors": {},
+      "members": [
+        {
+          "index": 0,
+          "age": 29,
+          "immigration_status": "CITIZEN",
+          "weekly_hours_worked": null,
+          "snap_excluded_member": false,
+          "snap_meets_work_rule": true,
+          "snap_immigration_eligible": true,
+          "medicaid_immigration_eligible": true
+        },
+        {
+          "index": 1,
+          "age": 7,
+          "immigration_status": "CITIZEN",
+          "weekly_hours_worked": null,
+          "snap_excluded_member": false,
+          "snap_meets_work_rule": true,
+          "snap_immigration_eligible": true,
+          "medicaid_immigration_eligible": true
+        },
+        {
+          "index": 2,
+          "age": 4,
+          "immigration_status": "CITIZEN",
+          "weekly_hours_worked": null,
+          "snap_excluded_member": false,
+          "snap_meets_work_rule": true,
+          "snap_immigration_eligible": true,
+          "medicaid_immigration_eligible": true
+        }
+      ],
+      "not_modeled": {
+        "liheap": {
+          "label": "LIHEAP (energy assistance)",
+          "note": "policyengine-us models LIHEAP only for DC and Riverside County, CA. Benefitline flags LIHEAP for Oklahoma DHS screening; no amount is shown.",
+          "agency_url": "https://oklahoma.gov/okdhs/services/liheap.html",
+          "eligible": null,
+          "amount": null
+        }
+      },
+      "household": {
+        "case_id": "case1_single_mother_two_kids",
+        "state": "OK",
+        "members": [
+          {
+            "age": 29,
+            "employment_income": 21840,
+            "social_security_retirement": 0.0,
+            "is_pregnant": false,
+            "is_breastfeeding": false,
+            "immigration_status": "CITIZEN",
+            "years_since_us_entry": null,
+            "other_medical_expenses": 0.0,
+            "medical_expense_health_insurance_premiums": 0.0,
+            "is_tax_unit_head": true,
+            "is_tax_unit_spouse": false,
+            "is_disabled": false,
+            "weekly_hours_worked": null,
+            "ssn_card_type": null
+          },
+          {
+            "age": 7,
+            "employment_income": 0.0,
+            "social_security_retirement": 0.0,
+            "is_pregnant": false,
+            "is_breastfeeding": false,
+            "immigration_status": "CITIZEN",
+            "years_since_us_entry": null,
+            "other_medical_expenses": 0.0,
+            "medical_expense_health_insurance_premiums": 0.0,
+            "is_tax_unit_head": false,
+            "is_tax_unit_spouse": false,
+            "is_disabled": false,
+            "weekly_hours_worked": null,
+            "ssn_card_type": null
+          },
+          {
+            "age": 4,
+            "employment_income": 0.0,
+            "social_security_retirement": 0.0,
+            "is_pregnant": false,
+            "is_breastfeeding": false,
+            "immigration_status": "CITIZEN",
+            "years_since_us_entry": null,
+            "other_medical_expenses": 0.0,
+            "medical_expense_health_insurance_premiums": 0.0,
+            "is_tax_unit_head": false,
+            "is_tax_unit_spouse": false,
+            "is_disabled": false,
+            "weekly_hours_worked": null,
+            "ssn_card_type": null
+          }
+        ],
+        "rent": 950,
+        "utility_expense": 180,
+        "year": 2026,
+        "citations": {}
+      }
+    },
+    "case2_couple_newborn": {
+      "case_id": "case2_couple_newborn",
+      "state": "OK",
+      "year": 2026,
+      "engine": "policyengine-us",
+      "engine_version": "2.0.4",
+      "programs": {
+        "snap": {
+          "amount": 357.0,
+          "unit": "USD/month",
+          "eligible": true,
+          "label": "SNAP (food)",
+          "variable": "snap",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/7/2017#a"
+          ]
+        },
+        "wic": {
+          "amount": 271.72,
+          "unit": "USD/month",
+          "eligible": true,
+          "eligible_members": [
+            1,
+            2
+          ],
+          "note": "Conditional: a WIC clinic must find nutritional risk (7 CFR 246.7(e)); the engine assumes it.",
+          "per_member": [
+            0.0,
+            89.05,
+            182.67
+          ],
+          "label": "WIC (women, infants, children)",
+          "variable": "wic",
+          "rules": [
+            "https://fns-prod.azureedge.net/sites/default/files/resource-files/WICPC2018FoodPackage-Summary.pdf#page=2",
+            "https://www.law.cornell.edu/cfr/text/7/246.7",
+            "https://www.law.cornell.edu/cfr/text/7/246.10",
+            "https://www.fns.usda.gov/wic/food-packages"
+          ]
+        },
+        "medicaid": {
+          "eligible": true,
+          "eligible_members": [
+            0,
+            1,
+            2
+          ],
+          "amount": null,
+          "unit": null,
+          "label": "Medicaid (SoonerCare)",
+          "variable": "is_medicaid_eligible",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/42/1396a#a_10",
+            "https://www.kff.org/racial-equity-and-health-policy/fact-sheet/key-facts-on-health-coverage-of-immigrants"
+          ]
+        },
+        "tanf": {
+          "amount": 0.0,
+          "unit": "USD/month",
+          "eligible": false,
+          "label": "TANF (cash)",
+          "variable": "ok_tanf",
+          "rules": [
+            "https://www.law.cornell.edu/regulations/oklahoma/OAC-340-10-3-59"
+          ]
+        },
+        "eitc": {
+          "amount": 4292.77,
+          "unit": "USD/year",
+          "eligible": true,
+          "label": "Earned Income Tax Credit (federal)",
+          "variable": "eitc",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/26/32#a"
+          ]
+        },
+        "ok_eitc": {
+          "amount": 125.03,
+          "unit": "USD/year",
+          "eligible": true,
+          "label": "Oklahoma EITC",
+          "variable": "ok_eitc",
+          "rules": [
+            "https://oklahoma.gov/content/dam/ok/en/tax/documents/forms/individuals/current/511-EIC.pdf",
+            "https://law.justia.com/codes/oklahoma/title-68/section-68-2357-43/",
+            "https://www.oklegislature.gov/cf_pdf/2021-22%20ENR/hB/HB2962%20ENR.PDF"
+          ]
+        },
+        "ctc": {
+          "amount": 2200.0,
+          "unit": "USD/year",
+          "eligible": true,
+          "label": "Child Tax Credit (federal)",
+          "variable": "ctc",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/26/24#a"
+          ]
+        },
+        "refundable_ctc": {
+          "amount": 1700.0,
+          "unit": "USD/year",
+          "eligible": true,
+          "label": "Child Tax Credit, refundable part",
+          "variable": "refundable_ctc",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/26/24#d"
+          ]
+        },
+        "ssi": {
+          "amount": 0.0,
+          "unit": "USD/year",
+          "eligible": false,
+          "label": "SSI",
+          "variable": "ssi",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/42/1382"
+          ]
+        }
+      },
+      "snap_detail": {
+        "snap_gross_income": 2666.67,
+        "snap_net_income": 1425.0,
+        "snap_max_allotment": 785.0,
+        "snap_standard_deduction": 209.0,
+        "snap_earned_income_deduction": 533.33,
+        "snap_excess_shelter_expense_deduction": 499.83,
+        "snap_excess_medical_expense_deduction": 0.0,
+        "snap_utility_allowance": 412.0,
+        "snap_expected_contribution": 428.0,
+        "meets_snap_gross_income_test": true,
+        "meets_snap_net_income_test": true
+      },
+      "snap_detail_errors": {},
+      "members": [
+        {
+          "index": 0,
+          "age": 31,
+          "immigration_status": "CITIZEN",
+          "weekly_hours_worked": null,
+          "snap_excluded_member": false,
+          "snap_meets_work_rule": true,
+          "snap_immigration_eligible": true,
+          "medicaid_immigration_eligible": true
+        },
+        {
+          "index": 1,
+          "age": 28,
+          "immigration_status": "CITIZEN",
+          "weekly_hours_worked": null,
+          "snap_excluded_member": false,
+          "snap_meets_work_rule": true,
+          "snap_immigration_eligible": true,
+          "medicaid_immigration_eligible": true
+        },
+        {
+          "index": 2,
+          "age": 0,
+          "immigration_status": "CITIZEN",
+          "weekly_hours_worked": null,
+          "snap_excluded_member": false,
+          "snap_meets_work_rule": true,
+          "snap_immigration_eligible": true,
+          "medicaid_immigration_eligible": true
+        }
+      ],
+      "not_modeled": {
+        "liheap": {
+          "label": "LIHEAP (energy assistance)",
+          "note": "policyengine-us models LIHEAP only for DC and Riverside County, CA. Benefitline flags LIHEAP for Oklahoma DHS screening; no amount is shown.",
+          "agency_url": "https://oklahoma.gov/okdhs/services/liheap.html",
+          "eligible": null,
+          "amount": null
+        }
+      },
+      "household": {
+        "case_id": "case2_couple_newborn",
+        "state": "OK",
+        "members": [
+          {
+            "age": 31,
+            "employment_income": 32000,
+            "social_security_retirement": 0.0,
+            "is_pregnant": false,
+            "is_breastfeeding": false,
+            "immigration_status": "CITIZEN",
+            "years_since_us_entry": null,
+            "other_medical_expenses": 0.0,
+            "medical_expense_health_insurance_premiums": 0.0,
+            "is_tax_unit_head": true,
+            "is_tax_unit_spouse": false,
+            "is_disabled": false,
+            "weekly_hours_worked": null,
+            "ssn_card_type": null
+          },
+          {
+            "age": 28,
+            "employment_income": 0.0,
+            "social_security_retirement": 0.0,
+            "is_pregnant": false,
+            "is_breastfeeding": true,
+            "immigration_status": "CITIZEN",
+            "years_since_us_entry": null,
+            "other_medical_expenses": 0.0,
+            "medical_expense_health_insurance_premiums": 0.0,
+            "is_tax_unit_head": false,
+            "is_tax_unit_spouse": true,
+            "is_disabled": false,
+            "weekly_hours_worked": null,
+            "ssn_card_type": null
+          },
+          {
+            "age": 0,
+            "employment_income": 0.0,
+            "social_security_retirement": 0.0,
+            "is_pregnant": false,
+            "is_breastfeeding": false,
+            "immigration_status": "CITIZEN",
+            "years_since_us_entry": null,
+            "other_medical_expenses": 0.0,
+            "medical_expense_health_insurance_premiums": 0.0,
+            "is_tax_unit_head": false,
+            "is_tax_unit_spouse": false,
+            "is_disabled": false,
+            "weekly_hours_worked": null,
+            "ssn_card_type": null
+          }
+        ],
+        "rent": 1050,
+        "utility_expense": 200,
+        "year": 2026,
+        "citations": {}
+      }
+    },
+    "case3_senior_alone": {
+      "case_id": "case3_senior_alone",
+      "state": "OK",
+      "year": 2026,
+      "engine": "policyengine-us",
+      "engine_version": "2.0.4",
+      "programs": {
+        "snap": {
+          "amount": 148.0,
+          "unit": "USD/month",
+          "eligible": true,
+          "label": "SNAP (food)",
+          "variable": "snap",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/7/2017#a"
+          ]
+        },
+        "wic": {
+          "amount": 0.0,
+          "unit": "USD/month",
+          "eligible": false,
+          "eligible_members": [],
+          "note": "Conditional: a WIC clinic must find nutritional risk (7 CFR 246.7(e)); the engine assumes it.",
+          "per_member": [
+            0.0
+          ],
+          "label": "WIC (women, infants, children)",
+          "variable": "wic",
+          "rules": [
+            "https://fns-prod.azureedge.net/sites/default/files/resource-files/WICPC2018FoodPackage-Summary.pdf#page=2",
+            "https://www.law.cornell.edu/cfr/text/7/246.7",
+            "https://www.law.cornell.edu/cfr/text/7/246.10",
+            "https://www.fns.usda.gov/wic/food-packages"
+          ]
+        },
+        "medicaid": {
+          "eligible": true,
+          "eligible_members": [
+            0
+          ],
+          "amount": null,
+          "unit": null,
+          "label": "Medicaid (SoonerCare)",
+          "variable": "is_medicaid_eligible",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/42/1396a#a_10",
+            "https://www.kff.org/racial-equity-and-health-policy/fact-sheet/key-facts-on-health-coverage-of-immigrants"
+          ]
+        },
+        "tanf": {
+          "amount": 0.0,
+          "unit": "USD/month",
+          "eligible": false,
+          "label": "TANF (cash)",
+          "variable": "ok_tanf",
+          "rules": [
+            "https://www.law.cornell.edu/regulations/oklahoma/OAC-340-10-3-59"
+          ]
+        },
+        "eitc": {
+          "amount": 0.0,
+          "unit": "USD/year",
+          "eligible": false,
+          "label": "Earned Income Tax Credit (federal)",
+          "variable": "eitc",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/26/32#a"
+          ]
+        },
+        "ok_eitc": {
+          "amount": 0.0,
+          "unit": "USD/year",
+          "eligible": false,
+          "label": "Oklahoma EITC",
+          "variable": "ok_eitc",
+          "rules": [
+            "https://oklahoma.gov/content/dam/ok/en/tax/documents/forms/individuals/current/511-EIC.pdf",
+            "https://law.justia.com/codes/oklahoma/title-68/section-68-2357-43/",
+            "https://www.oklegislature.gov/cf_pdf/2021-22%20ENR/hB/HB2962%20ENR.PDF"
+          ]
+        },
+        "ctc": {
+          "amount": 0.0,
+          "unit": "USD/year",
+          "eligible": false,
+          "label": "Child Tax Credit (federal)",
+          "variable": "ctc",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/26/24#a"
+          ]
+        },
+        "refundable_ctc": {
+          "amount": 0.0,
+          "unit": "USD/year",
+          "eligible": false,
+          "label": "Child Tax Credit, refundable part",
+          "variable": "refundable_ctc",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/26/24#d"
+          ]
+        },
+        "ssi": {
+          "amount": 0.0,
+          "unit": "USD/year",
+          "eligible": false,
+          "label": "SSI",
+          "variable": "ssi",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/42/1382"
+          ]
+        }
+      },
+      "snap_detail": {
+        "snap_gross_income": 1250.0,
+        "snap_net_income": 500.0,
+        "snap_max_allotment": 298.0,
+        "snap_standard_deduction": 209.0,
+        "snap_earned_income_deduction": 0.0,
+        "snap_excess_shelter_expense_deduction": 541.5,
+        "snap_excess_medical_expense_deduction": 0.0,
+        "snap_utility_allowance": 412.0,
+        "snap_expected_contribution": 150.0,
+        "meets_snap_gross_income_test": true,
+        "meets_snap_net_income_test": true
+      },
+      "snap_detail_errors": {},
+      "members": [
+        {
+          "index": 0,
+          "age": 71,
+          "immigration_status": "CITIZEN",
+          "weekly_hours_worked": null,
+          "snap_excluded_member": false,
+          "snap_meets_work_rule": true,
+          "snap_immigration_eligible": true,
+          "medicaid_immigration_eligible": true
+        }
+      ],
+      "not_modeled": {
+        "liheap": {
+          "label": "LIHEAP (energy assistance)",
+          "note": "policyengine-us models LIHEAP only for DC and Riverside County, CA. Benefitline flags LIHEAP for Oklahoma DHS screening; no amount is shown.",
+          "agency_url": "https://oklahoma.gov/okdhs/services/liheap.html",
+          "eligible": null,
+          "amount": null
+        }
+      },
+      "household": {
+        "case_id": "case3_senior_alone",
+        "state": "OK",
+        "members": [
+          {
+            "age": 71,
+            "employment_income": 0.0,
+            "social_security_retirement": 15000,
+            "is_pregnant": false,
+            "is_breastfeeding": false,
+            "immigration_status": "CITIZEN",
+            "years_since_us_entry": null,
+            "other_medical_expenses": 0.0,
+            "medical_expense_health_insurance_premiums": 0.0,
+            "is_tax_unit_head": true,
+            "is_tax_unit_spouse": false,
+            "is_disabled": false,
+            "weekly_hours_worked": null,
+            "ssn_card_type": null
+          }
+        ],
+        "rent": 650,
+        "utility_expense": 140,
+        "year": 2026,
+        "citations": {}
+      }
+    },
+    "case3b_senior_alone_with_medical": {
+      "case_id": "case3b_senior_alone_with_medical",
+      "state": "OK",
+      "year": 2026,
+      "engine": "policyengine-us",
+      "engine_version": "2.0.4",
+      "programs": {
+        "snap": {
+          "amount": 298.0,
+          "unit": "USD/month",
+          "eligible": true,
+          "label": "SNAP (food)",
+          "variable": "snap",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/7/2017#a"
+          ]
+        },
+        "wic": {
+          "amount": 0.0,
+          "unit": "USD/month",
+          "eligible": false,
+          "eligible_members": [],
+          "note": "Conditional: a WIC clinic must find nutritional risk (7 CFR 246.7(e)); the engine assumes it.",
+          "per_member": [
+            0.0
+          ],
+          "label": "WIC (women, infants, children)",
+          "variable": "wic",
+          "rules": [
+            "https://fns-prod.azureedge.net/sites/default/files/resource-files/WICPC2018FoodPackage-Summary.pdf#page=2",
+            "https://www.law.cornell.edu/cfr/text/7/246.7",
+            "https://www.law.cornell.edu/cfr/text/7/246.10",
+            "https://www.fns.usda.gov/wic/food-packages"
+          ]
+        },
+        "medicaid": {
+          "eligible": true,
+          "eligible_members": [
+            0
+          ],
+          "amount": null,
+          "unit": null,
+          "label": "Medicaid (SoonerCare)",
+          "variable": "is_medicaid_eligible",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/42/1396a#a_10",
+            "https://www.kff.org/racial-equity-and-health-policy/fact-sheet/key-facts-on-health-coverage-of-immigrants"
+          ]
+        },
+        "tanf": {
+          "amount": 0.0,
+          "unit": "USD/month",
+          "eligible": false,
+          "label": "TANF (cash)",
+          "variable": "ok_tanf",
+          "rules": [
+            "https://www.law.cornell.edu/regulations/oklahoma/OAC-340-10-3-59"
+          ]
+        },
+        "eitc": {
+          "amount": 0.0,
+          "unit": "USD/year",
+          "eligible": false,
+          "label": "Earned Income Tax Credit (federal)",
+          "variable": "eitc",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/26/32#a"
+          ]
+        },
+        "ok_eitc": {
+          "amount": 0.0,
+          "unit": "USD/year",
+          "eligible": false,
+          "label": "Oklahoma EITC",
+          "variable": "ok_eitc",
+          "rules": [
+            "https://oklahoma.gov/content/dam/ok/en/tax/documents/forms/individuals/current/511-EIC.pdf",
+            "https://law.justia.com/codes/oklahoma/title-68/section-68-2357-43/",
+            "https://www.oklegislature.gov/cf_pdf/2021-22%20ENR/hB/HB2962%20ENR.PDF"
+          ]
+        },
+        "ctc": {
+          "amount": 0.0,
+          "unit": "USD/year",
+          "eligible": false,
+          "label": "Child Tax Credit (federal)",
+          "variable": "ctc",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/26/24#a"
+          ]
+        },
+        "refundable_ctc": {
+          "amount": 0.0,
+          "unit": "USD/year",
+          "eligible": false,
+          "label": "Child Tax Credit, refundable part",
+          "variable": "refundable_ctc",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/26/24#d"
+          ]
+        },
+        "ssi": {
+          "amount": 0.0,
+          "unit": "USD/year",
+          "eligible": false,
+          "label": "SSI",
+          "variable": "ssi",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/42/1382"
+          ]
+        }
+      },
+      "snap_detail": {
+        "snap_gross_income": 1250.0,
+        "snap_net_income": 0.0,
+        "snap_max_allotment": 298.0,
+        "snap_standard_deduction": 209.0,
+        "snap_earned_income_deduction": 0.0,
+        "snap_excess_shelter_expense_deduction": 715.45,
+        "snap_excess_medical_expense_deduction": 347.9,
+        "snap_utility_allowance": 412.0,
+        "snap_expected_contribution": 0.0,
+        "meets_snap_gross_income_test": true,
+        "meets_snap_net_income_test": true
+      },
+      "snap_detail_errors": {},
+      "members": [
+        {
+          "index": 0,
+          "age": 71,
+          "immigration_status": "CITIZEN",
+          "weekly_hours_worked": null,
+          "snap_excluded_member": false,
+          "snap_meets_work_rule": true,
+          "snap_immigration_eligible": true,
+          "medicaid_immigration_eligible": true
+        }
+      ],
+      "not_modeled": {
+        "liheap": {
+          "label": "LIHEAP (energy assistance)",
+          "note": "policyengine-us models LIHEAP only for DC and Riverside County, CA. Benefitline flags LIHEAP for Oklahoma DHS screening; no amount is shown.",
+          "agency_url": "https://oklahoma.gov/okdhs/services/liheap.html",
+          "eligible": null,
+          "amount": null
+        }
+      },
+      "household": {
+        "case_id": "case3b_senior_alone_with_medical",
+        "state": "OK",
+        "members": [
+          {
+            "age": 71,
+            "employment_income": 0.0,
+            "social_security_retirement": 15000,
+            "is_pregnant": false,
+            "is_breastfeeding": false,
+            "immigration_status": "CITIZEN",
+            "years_since_us_entry": null,
+            "other_medical_expenses": 2160,
+            "medical_expense_health_insurance_premiums": 2434.8,
+            "is_tax_unit_head": true,
+            "is_tax_unit_spouse": false,
+            "is_disabled": false,
+            "weekly_hours_worked": null,
+            "ssn_card_type": null
+          }
+        ],
+        "rent": 650,
+        "utility_expense": 140,
+        "year": 2026,
+        "citations": {}
+      }
+    },
+    "case4_mixed_status": {
+      "case_id": "case4_mixed_status",
+      "state": "OK",
+      "year": 2026,
+      "engine": "policyengine-us",
+      "engine_version": "2.0.4",
+      "programs": {
+        "snap": {
+          "amount": 546.0,
+          "unit": "USD/month",
+          "eligible": true,
+          "label": "SNAP (food)",
+          "variable": "snap",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/7/2017#a"
+          ]
+        },
+        "wic": {
+          "amount": 59.8,
+          "unit": "USD/month",
+          "eligible": true,
+          "eligible_members": [
+            3
+          ],
+          "note": "Conditional: a WIC clinic must find nutritional risk (7 CFR 246.7(e)); the engine assumes it.",
+          "per_member": [
+            0.0,
+            0.0,
+            0.0,
+            59.8
+          ],
+          "label": "WIC (women, infants, children)",
+          "variable": "wic",
+          "rules": [
+            "https://fns-prod.azureedge.net/sites/default/files/resource-files/WICPC2018FoodPackage-Summary.pdf#page=2",
+            "https://www.law.cornell.edu/cfr/text/7/246.7",
+            "https://www.law.cornell.edu/cfr/text/7/246.10",
+            "https://www.fns.usda.gov/wic/food-packages"
+          ]
+        },
+        "medicaid": {
+          "eligible": true,
+          "eligible_members": [
+            2,
+            3
+          ],
+          "amount": null,
+          "unit": null,
+          "label": "Medicaid (SoonerCare)",
+          "variable": "is_medicaid_eligible",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/42/1396a#a_10",
+            "https://www.kff.org/racial-equity-and-health-policy/fact-sheet/key-facts-on-health-coverage-of-immigrants"
+          ]
+        },
+        "tanf": {
+          "amount": 0.0,
+          "unit": "USD/month",
+          "eligible": false,
+          "label": "TANF (cash)",
+          "variable": "ok_tanf",
+          "rules": [
+            "https://www.law.cornell.edu/regulations/oklahoma/OAC-340-10-3-59"
+          ]
+        },
+        "eitc": {
+          "amount": 0.0,
+          "unit": "USD/year",
+          "eligible": false,
+          "label": "Earned Income Tax Credit (federal)",
+          "variable": "eitc",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/26/32#a"
+          ]
+        },
+        "ok_eitc": {
+          "amount": 0.0,
+          "unit": "USD/year",
+          "eligible": false,
+          "label": "Oklahoma EITC",
+          "variable": "ok_eitc",
+          "rules": [
+            "https://oklahoma.gov/content/dam/ok/en/tax/documents/forms/individuals/current/511-EIC.pdf",
+            "https://law.justia.com/codes/oklahoma/title-68/section-68-2357-43/",
+            "https://www.oklegislature.gov/cf_pdf/2021-22%20ENR/hB/HB2962%20ENR.PDF"
+          ]
+        },
+        "ctc": {
+          "amount": 1000.0,
+          "unit": "USD/year",
+          "eligible": true,
+          "label": "Child Tax Credit (federal)",
+          "variable": "ctc",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/26/24#a"
+          ],
+          "note": "Filer has no valid SSN: this is the $500-per-dependent other-dependent credit (26 USC 24(h)(4)), available only if the filer files with an ITIN."
+        },
+        "refundable_ctc": {
+          "amount": 0.0,
+          "unit": "USD/year",
+          "eligible": false,
+          "label": "Child Tax Credit, refundable part",
+          "variable": "refundable_ctc",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/26/24#d"
+          ],
+          "note": "Filer has no valid SSN: this is the $500-per-dependent other-dependent credit (26 USC 24(h)(4)), available only if the filer files with an ITIN."
+        },
+        "ssi": {
+          "amount": 0.0,
+          "unit": "USD/year",
+          "eligible": false,
+          "label": "SSI",
+          "variable": "ssi",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/42/1382"
+          ]
+        }
+      },
+      "snap_detail": {
+        "snap_gross_income": 1083.33,
+        "snap_net_income": 0.0,
+        "snap_max_allotment": 546.0,
+        "snap_standard_deduction": 209.0,
+        "snap_earned_income_deduction": 216.67,
+        "snap_excess_shelter_expense_deduction": 744.0,
+        "snap_excess_medical_expense_deduction": 0.0,
+        "snap_utility_allowance": 412.0,
+        "snap_expected_contribution": 0.0,
+        "meets_snap_gross_income_test": true,
+        "meets_snap_net_income_test": true
+      },
+      "snap_detail_errors": {},
+      "members": [
+        {
+          "index": 0,
+          "age": 38,
+          "immigration_status": "UNDOCUMENTED",
+          "weekly_hours_worked": 40,
+          "snap_excluded_member": true,
+          "snap_meets_work_rule": true,
+          "snap_immigration_eligible": false,
+          "medicaid_immigration_eligible": false
+        },
+        {
+          "index": 1,
+          "age": 35,
+          "immigration_status": "UNDOCUMENTED",
+          "weekly_hours_worked": null,
+          "snap_excluded_member": true,
+          "snap_meets_work_rule": true,
+          "snap_immigration_eligible": false,
+          "medicaid_immigration_eligible": false
+        },
+        {
+          "index": 2,
+          "age": 9,
+          "immigration_status": "CITIZEN",
+          "weekly_hours_worked": null,
+          "snap_excluded_member": false,
+          "snap_meets_work_rule": true,
+          "snap_immigration_eligible": true,
+          "medicaid_immigration_eligible": true
+        },
+        {
+          "index": 3,
+          "age": 3,
+          "immigration_status": "CITIZEN",
+          "weekly_hours_worked": null,
+          "snap_excluded_member": false,
+          "snap_meets_work_rule": true,
+          "snap_immigration_eligible": true,
+          "medicaid_immigration_eligible": true
+        }
+      ],
+      "not_modeled": {
+        "liheap": {
+          "label": "LIHEAP (energy assistance)",
+          "note": "policyengine-us models LIHEAP only for DC and Riverside County, CA. Benefitline flags LIHEAP for Oklahoma DHS screening; no amount is shown.",
+          "agency_url": "https://oklahoma.gov/okdhs/services/liheap.html",
+          "eligible": null,
+          "amount": null
+        }
+      },
+      "household": {
+        "case_id": "case4_mixed_status",
+        "state": "OK",
+        "members": [
+          {
+            "age": 38,
+            "employment_income": 26000,
+            "social_security_retirement": 0.0,
+            "is_pregnant": false,
+            "is_breastfeeding": false,
+            "immigration_status": "UNDOCUMENTED",
+            "years_since_us_entry": null,
+            "other_medical_expenses": 0.0,
+            "medical_expense_health_insurance_premiums": 0.0,
+            "is_tax_unit_head": true,
+            "is_tax_unit_spouse": false,
+            "is_disabled": false,
+            "weekly_hours_worked": 40,
+            "ssn_card_type": "NONE"
+          },
+          {
+            "age": 35,
+            "employment_income": 0.0,
+            "social_security_retirement": 0.0,
+            "is_pregnant": false,
+            "is_breastfeeding": false,
+            "immigration_status": "UNDOCUMENTED",
+            "years_since_us_entry": null,
+            "other_medical_expenses": 0.0,
+            "medical_expense_health_insurance_premiums": 0.0,
+            "is_tax_unit_head": false,
+            "is_tax_unit_spouse": true,
+            "is_disabled": false,
+            "weekly_hours_worked": null,
+            "ssn_card_type": "NONE"
+          },
+          {
+            "age": 9,
+            "employment_income": 0.0,
+            "social_security_retirement": 0.0,
+            "is_pregnant": false,
+            "is_breastfeeding": false,
+            "immigration_status": "CITIZEN",
+            "years_since_us_entry": null,
+            "other_medical_expenses": 0.0,
+            "medical_expense_health_insurance_premiums": 0.0,
+            "is_tax_unit_head": false,
+            "is_tax_unit_spouse": false,
+            "is_disabled": false,
+            "weekly_hours_worked": null,
+            "ssn_card_type": null
+          },
+          {
+            "age": 3,
+            "employment_income": 0.0,
+            "social_security_retirement": 0.0,
+            "is_pregnant": false,
+            "is_breastfeeding": false,
+            "immigration_status": "CITIZEN",
+            "years_since_us_entry": null,
+            "other_medical_expenses": 0.0,
+            "medical_expense_health_insurance_premiums": 0.0,
+            "is_tax_unit_head": false,
+            "is_tax_unit_spouse": false,
+            "is_disabled": false,
+            "weekly_hours_worked": null,
+            "ssn_card_type": null
+          }
+        ],
+        "rent": 900,
+        "utility_expense": 170,
+        "year": 2026,
+        "citations": {}
+      }
+    },
+    "case5_on_snap_recert_due": {
+      "case_id": "case5_on_snap_recert_due",
+      "state": "OK",
+      "year": 2026,
+      "engine": "policyengine-us",
+      "engine_version": "2.0.4",
+      "programs": {
+        "snap": {
+          "amount": 433.0,
+          "unit": "USD/month",
+          "eligible": true,
+          "label": "SNAP (food)",
+          "variable": "snap",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/7/2017#a"
+          ]
+        },
+        "wic": {
+          "amount": 0.0,
+          "unit": "USD/month",
+          "eligible": false,
+          "eligible_members": [],
+          "note": "Conditional: a WIC clinic must find nutritional risk (7 CFR 246.7(e)); the engine assumes it.",
+          "per_member": [
+            0.0,
+            0.0
+          ],
+          "label": "WIC (women, infants, children)",
+          "variable": "wic",
+          "rules": [
+            "https://fns-prod.azureedge.net/sites/default/files/resource-files/WICPC2018FoodPackage-Summary.pdf#page=2",
+            "https://www.law.cornell.edu/cfr/text/7/246.7",
+            "https://www.law.cornell.edu/cfr/text/7/246.10",
+            "https://www.fns.usda.gov/wic/food-packages"
+          ]
+        },
+        "medicaid": {
+          "eligible": true,
+          "eligible_members": [
+            0,
+            1
+          ],
+          "amount": null,
+          "unit": null,
+          "label": "Medicaid (SoonerCare)",
+          "variable": "is_medicaid_eligible",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/42/1396a#a_10",
+            "https://www.kff.org/racial-equity-and-health-policy/fact-sheet/key-facts-on-health-coverage-of-immigrants"
+          ]
+        },
+        "tanf": {
+          "amount": 0.0,
+          "unit": "USD/month",
+          "eligible": false,
+          "label": "TANF (cash)",
+          "variable": "ok_tanf",
+          "rules": [
+            "https://www.law.cornell.edu/regulations/oklahoma/OAC-340-10-3-59"
+          ]
+        },
+        "eitc": {
+          "amount": 4427.0,
+          "unit": "USD/year",
+          "eligible": true,
+          "label": "Earned Income Tax Credit (federal)",
+          "variable": "eitc",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/26/32#a"
+          ]
+        },
+        "ok_eitc": {
+          "amount": 179.2,
+          "unit": "USD/year",
+          "eligible": true,
+          "label": "Oklahoma EITC",
+          "variable": "ok_eitc",
+          "rules": [
+            "https://oklahoma.gov/content/dam/ok/en/tax/documents/forms/individuals/current/511-EIC.pdf",
+            "https://law.justia.com/codes/oklahoma/title-68/section-68-2357-43/",
+            "https://www.oklegislature.gov/cf_pdf/2021-22%20ENR/hB/HB2962%20ENR.PDF"
+          ]
+        },
+        "ctc": {
+          "amount": 2200.0,
+          "unit": "USD/year",
+          "eligible": true,
+          "label": "Child Tax Credit (federal)",
+          "variable": "ctc",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/26/24#a"
+          ]
+        },
+        "refundable_ctc": {
+          "amount": 1700.0,
+          "unit": "USD/year",
+          "eligible": true,
+          "label": "Child Tax Credit, refundable part",
+          "variable": "refundable_ctc",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/26/24#d"
+          ]
+        },
+        "ssi": {
+          "amount": 0.0,
+          "unit": "USD/year",
+          "eligible": false,
+          "label": "SSI",
+          "variable": "ssi",
+          "rules": [
+            "https://www.law.cornell.edu/uscode/text/42/1382"
+          ]
+        }
+      },
+      "snap_detail": {
+        "snap_gross_income": 1583.33,
+        "snap_net_income": 375.0,
+        "snap_max_allotment": 546.0,
+        "snap_standard_deduction": 209.0,
+        "snap_earned_income_deduction": 316.67,
+        "snap_excess_shelter_expense_deduction": 683.17,
+        "snap_excess_medical_expense_deduction": 0.0,
+        "snap_utility_allowance": 412.0,
+        "snap_expected_contribution": 113.0,
+        "meets_snap_gross_income_test": true,
+        "meets_snap_net_income_test": true
+      },
+      "snap_detail_errors": {},
+      "members": [
+        {
+          "index": 0,
+          "age": 44,
+          "immigration_status": "CITIZEN",
+          "weekly_hours_worked": null,
+          "snap_excluded_member": false,
+          "snap_meets_work_rule": true,
+          "snap_immigration_eligible": true,
+          "medicaid_immigration_eligible": true
+        },
+        {
+          "index": 1,
+          "age": 12,
+          "immigration_status": "CITIZEN",
+          "weekly_hours_worked": null,
+          "snap_excluded_member": false,
+          "snap_meets_work_rule": true,
+          "snap_immigration_eligible": true,
+          "medicaid_immigration_eligible": true
+        }
+      ],
+      "not_modeled": {
+        "liheap": {
+          "label": "LIHEAP (energy assistance)",
+          "note": "policyengine-us models LIHEAP only for DC and Riverside County, CA. Benefitline flags LIHEAP for Oklahoma DHS screening; no amount is shown.",
+          "agency_url": "https://oklahoma.gov/okdhs/services/liheap.html",
+          "eligible": null,
+          "amount": null
+        }
+      },
+      "household": {
+        "case_id": "case5_on_snap_recert_due",
+        "state": "OK",
+        "members": [
+          {
+            "age": 44,
+            "employment_income": 19000,
+            "social_security_retirement": 0.0,
+            "is_pregnant": false,
+            "is_breastfeeding": false,
+            "immigration_status": "CITIZEN",
+            "years_since_us_entry": null,
+            "other_medical_expenses": 0.0,
+            "medical_expense_health_insurance_premiums": 0.0,
+            "is_tax_unit_head": true,
+            "is_tax_unit_spouse": false,
+            "is_disabled": false,
+            "weekly_hours_worked": null,
+            "ssn_card_type": null
+          },
+          {
+            "age": 12,
+            "employment_income": 0.0,
+            "social_security_retirement": 0.0,
+            "is_pregnant": false,
+            "is_breastfeeding": false,
+            "immigration_status": "CITIZEN",
+            "years_since_us_entry": null,
+            "other_medical_expenses": 0.0,
+            "medical_expense_health_insurance_premiums": 0.0,
+            "is_tax_unit_head": false,
+            "is_tax_unit_spouse": false,
+            "is_disabled": false,
+            "weekly_hours_worked": null,
+            "ssn_card_type": null
+          }
+        ],
+        "rent": 800,
+        "utility_expense": 160,
+        "year": 2026,
+        "citations": {}
+      }
+    }
+  }
+}

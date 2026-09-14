@@ -1,0 +1,2865 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Benefitline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E9EDEA; --surface:#FCFDFC; --surface-2:#F2F5F2;
+  --text:#16211C; --muted:#59685F; --border:#CFD9D2;
+  --accent:#14624A; --accent-soft:#DCE8E1; --accent-ink:#0E4635;
+  --signal:#A8452B; --signal-soft:#F3E2DC;
+  --radius:6px;
+  --shadow:0 10px 22px -18px rgba(22,33,28,.55);
+  --font-display:"Bricolage Grotesque","Trebuchet MS",Verdana,sans-serif;
+  --font-body:"IBM Plex Sans","Segoe UI",Tahoma,sans-serif;
+  --font-ar:"IBM Plex Sans Arabic","Noto Naskh Arabic","Segoe UI",Tahoma,sans-serif;
+  --font-mono:"IBM Plex Mono","Cascadia Mono",Consolas,monospace;
+  --tabbar:64px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);
+  background-image:linear-gradient(180deg,#E4EAE6 0%,#E9EDEA 240px,#E9EDEA 100%);
+  color:var(--text); font-family:var(--font-body); font-size:16px; line-height:1.5;
+  -webkit-text-size-adjust:100%;
+}
+[lang="ar"],.ar{font-family:var(--font-ar)}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--accent-ink)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- shell ---------- */
+.shell{max-width:640px;margin:0 auto;padding:0 14px calc(var(--tabbar) + 26px);}
+.shell.wide{max-width:960px}
+header.top{
+  position:sticky;top:0;z-index:30;margin:0 -14px 12px;padding:10px 14px 9px;
+  background:rgba(233,237,234,.94);border-bottom:1px solid var(--border);
+}
+.topline{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.wordmark{font-family:var(--font-display);font-weight:800;font-size:19px;letter-spacing:-.02em;margin:0}
+.wordmark span{color:var(--accent)}
+.topline .grow{flex:1 1 auto}
+.badge-mock{
+  font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--signal);background:var(--signal-soft);border:1px solid #E0C4BA;border-radius:3px;padding:2px 6px;
+}
+.tierchip{
+  display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:3px 10px;
+  background:var(--surface);border:1px solid var(--border);border-radius:999px;
+  font-family:var(--font-mono);font-size:12px;font-weight:600;cursor:pointer;
+}
+.tierchip b{font-weight:600;color:var(--accent)}
+.qchip{
+  display:inline-flex;align-items:center;min-height:44px;padding:3px 10px;
+  background:var(--surface);border:1px solid var(--border);border-radius:999px;
+  font-family:var(--font-mono);font-size:12px;font-weight:600;color:var(--muted);white-space:nowrap;
+}
+.qchip b{font-weight:600;color:var(--accent)}
+.tierchip .qm{color:var(--muted);border:1px solid var(--border);border-radius:50%;width:16px;height:16px;
+  display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-family:var(--font-body)}
+.tip{
+  display:none;margin-top:8px;background:var(--text);color:#F3F6F3;border-radius:var(--radius);
+  padding:9px 11px;font-size:13px;line-height:1.4;max-width:340px;
+}
+.tip.open{display:block}
+.linkish{background:none;border:0;padding:8px 2px;min-height:44px;color:var(--accent-ink);text-decoration:underline;
+  text-underline-offset:3px;cursor:pointer;font-size:13.5px}
+
+/* ---------- panels / tabs ---------- */
+.panel{display:none}
+.panel.active{display:block;animation:rise .26s cubic-bezier(.22,.7,.3,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.panel.active{animation:none}}
+nav.tabs{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;
+  background:var(--surface);border-top:1px solid var(--border);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+nav.tabs button{
+  flex:1 1 0;min-height:var(--tabbar);border:0;background:none;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  font-size:11.5px;font-weight:500;color:var(--muted);padding:6px 2px;
+}
+nav.tabs button .rule{width:22px;height:3px;background:transparent;border-radius:2px}
+nav.tabs button[aria-selected="true"]{color:var(--accent-ink);font-weight:600}
+nav.tabs button[aria-selected="true"] .rule{background:var(--accent)}
+nav.tabs .count{font-family:var(--font-mono);font-size:10px;background:var(--signal);color:#fffdfc;
+  border-radius:999px;padding:0 5px;line-height:15px;min-width:15px}
+
+h2.screen{font-family:var(--font-display);font-weight:700;font-size:22px;letter-spacing:-.02em;margin:6px 0 2px}
+p.screen-sub{margin:0 0 14px;color:var(--muted);font-size:13.5px}
+
+/* ---------- gallery picker ---------- */
+.picker{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:12px}
+.picker h3{font-family:var(--font-display);font-weight:700;font-size:14px;margin:0 0 2px}
+.fict{font-size:11.5px;color:var(--muted);margin:0 0 10px}
+.fict b{color:var(--accent-ink);font-weight:600}
+.cases{display:grid;gap:8px}
+.case-btn{
+  display:block;width:100%;text-align:left;min-height:52px;padding:9px 11px;cursor:pointer;
+  background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);
+}
+.case-btn[aria-pressed="true"]{background:var(--accent-soft);border-color:#A9C4B6}
+.case-btn .cn{font-weight:600;font-size:14px;display:block}
+.case-btn .cd{font-size:12.5px;color:var(--muted);display:block;margin-top:1px}
+.rowtools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.btn{
+  min-height:44px;padding:9px 14px;border-radius:var(--radius);cursor:pointer;font-weight:600;font-size:14px;
+  border:1px solid var(--accent);background:var(--accent);color:#F4F8F5;
+}
+.btn:disabled{opacity:.5;cursor:default}
+.btn.ghost{background:var(--surface);color:var(--accent-ink)}
+.btn.quiet{background:var(--surface);color:var(--text);border-color:var(--border)}
+.btn.warn{background:var(--signal);border-color:var(--signal);color:#FFF7F4}
+.seg{display:inline-flex;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
+.seg button{min-height:44px;padding:8px 13px;border:0;background:none;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent-ink)}
+
+/* ---------- chat ---------- */
+.thread{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:12px 12px 4px;min-height:220px;box-shadow:var(--shadow);
+}
+.thread[dir="rtl"]{font-family:var(--font-ar)}
+.msg{display:flex;margin-bottom:10px}
+.msg .bub{max-width:82%;padding:8px 11px;border-radius:14px;font-size:15px;line-height:1.45;position:relative;
+  overflow-wrap:anywhere;word-break:break-word}
+.msg.agent{justify-content:flex-start}
+.msg.agent .bub{background:var(--surface-2);border:1px solid var(--border);border-bottom-left-radius:3px}
+.msg.family{justify-content:flex-end}
+.msg.family .bub{background:var(--accent);color:#F2F7F4;border-bottom-right-radius:3px}
+.thread[dir="rtl"] .msg.agent .bub{border-bottom-left-radius:14px;border-bottom-right-radius:3px}
+.thread[dir="rtl"] .msg.family .bub{border-bottom-right-radius:14px;border-bottom-left-radius:3px}
+.meta{font-family:var(--font-mono);font-size:10.5px;color:var(--muted);margin-top:4px;letter-spacing:.02em}
+.msg.family .meta{color:#CFE0D7}
+.typing span{display:inline-block;width:6px;height:6px;margin-right:3px;border-radius:50%;background:var(--muted);
+  animation:blip 1s infinite ease-in-out}
+.typing span:nth-child(2){animation-delay:.15s}.typing span:nth-child(3){animation-delay:.3s}
+@keyframes blip{0%,60%,100%{opacity:.3}30%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.typing span{animation:none;opacity:.6}}
+form.composer{display:flex;gap:8px;margin-top:10px}
+form.composer input{
+  flex:1 1 auto;min-height:44px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--radius);
+  background:var(--surface);
+}
+form.composer input:disabled{background:var(--surface-2);color:var(--muted)}
+.hint{font-size:12.5px;color:var(--muted);margin:8px 0 0}
+
+/* ---------- results ---------- */
+.explain{
+  background:var(--accent-soft);border:1px solid #A9C4B6;border-radius:var(--radius);
+  padding:12px 13px;margin-bottom:14px;font-size:15px;line-height:1.55;white-space:pre-wrap;
+  overflow-wrap:anywhere;word-break:break-word;
+}
+.explain[dir="rtl"]{font-family:var(--font-ar);font-size:16px}
+.explain a,.prog a,.notelist a,.rulerow a,.msg .bub a{overflow-wrap:anywhere;word-break:break-word}
+.prog{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 13px;margin-bottom:10px}
+.prog h3{font-family:var(--font-display);font-weight:700;font-size:15px;margin:0 0 6px;letter-spacing:-.01em}
+.amount{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.amount .fig{font-family:var(--font-mono);font-weight:600;font-size:40px;line-height:1.05;letter-spacing:-.03em;color:var(--accent-ink)}
+.amount .unit{font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;font-weight:600}
+.state{font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--accent-ink)}
+.state.no{color:var(--muted)}
+.state.check{color:var(--signal)}
+.prog .who{font-size:13px;color:var(--muted);margin:6px 0 0}
+.rulerow{margin-top:5px;padding-top:2px;border-top:1px solid var(--border);display:flex;gap:0;flex-wrap:wrap}
+.rulerow a:first-child{margin-inline-start:-8px}
+.rulerow a{
+  font-family:var(--font-mono);font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--accent-ink);text-decoration:underline;text-underline-offset:3px;padding:11px 8px;
+  min-height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:center;
+}
+.disc{margin-top:8px}
+.disc summary{cursor:pointer;font-size:13.5px;font-weight:600;color:var(--accent-ink);min-height:44px;
+  padding:12px 0;line-height:20px}
+details.prog>summary{cursor:pointer;min-height:44px;padding:12px 0;line-height:20px}
+.kv{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:4px}
+.kv td{padding:5px 0;border-bottom:1px solid var(--border)}
+.kv td:last-child{text-align:right;font-family:var(--font-mono);font-weight:500;white-space:nowrap}
+.kv tr:last-child td{border-bottom:0}
+.kv tr.total td{font-weight:600;color:var(--accent-ink)}
+.foot{font-size:12.5px;color:var(--muted);margin:14px 0 0;padding-top:10px;border-top:1px solid var(--border)}
+.notelist{margin:0;padding:0;list-style:none}
+.notelist li{padding:9px 0;border-bottom:1px solid var(--border);font-size:14px;display:flex;justify-content:space-between;gap:10px}
+.notelist li:last-child{border-bottom:0}
+.notelist .nm{color:var(--muted)}
+.notelist a{min-height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:flex-end;
+  color:var(--accent-ink);text-decoration:underline;text-underline-offset:3px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.notelist li{align-items:center}
+.empty{background:var(--surface);border:1px dashed var(--border);border-radius:var(--radius);padding:18px 14px;color:var(--muted);font-size:14px}
+
+/* ---------- board ---------- */
+.boardrow{
+  width:100%;text-align:left;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:11px 12px;margin-bottom:9px;cursor:pointer;min-height:44px;display:block;
+}
+.boardrow .bt{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.boardrow .cid{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+.pill{
+  font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;border-radius:3px;padding:2px 6px;
+  background:var(--surface-2);border:1px solid var(--border);color:var(--muted);white-space:nowrap;
+}
+.pill.escalated{background:var(--signal-soft);border-color:#E0C4BA;color:var(--signal)}
+.pill.filed{background:var(--accent-soft);border-color:#A9C4B6;color:var(--accent-ink)}
+.masked{font-family:var(--font-mono);color:var(--muted);font-size:13px}
+.boardrow .line{font-size:13.5px;margin-top:4px}
+.boardrow .due{font-size:13px;color:var(--signal);margin-top:3px;font-weight:600}
+.claimbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:10px;margin-bottom:12px}
+.claimbar input{min-height:44px;padding:9px 11px;border:1px solid var(--border);border-radius:var(--radius);flex:1 1 150px;background:var(--surface-2)}
+.detail{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:13px;margin-bottom:12px}
+.detail h3{font-family:var(--font-display);font-size:16px;margin:0 0 8px}
+.detail h4{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:16px 0 6px;font-weight:600}
+.fieldrow{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid var(--border);font-size:13.5px}
+.fieldrow:last-child{border-bottom:0}
+.cite{font-family:var(--font-mono);font-size:10.5px;color:var(--accent-ink);background:var(--accent-soft);
+  border-radius:3px;padding:1px 5px;white-space:nowrap;align-self:center}
+.mini-thread{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:9px;font-size:13.5px}
+.mini-thread p{margin:0 0 6px}
+.mini-thread p:last-child{margin:0}
+.mini-thread .r{font-family:var(--font-mono);font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+
+/* ---------- decision cards ---------- */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:12px;box-shadow:var(--shadow)}
+.card .sit{font-size:16px;line-height:1.5;margin:0 0 12px}
+.opt{
+  display:block;width:100%;text-align:left;min-height:60px;padding:12px 13px;margin-bottom:9px;cursor:pointer;
+  background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);
+}
+.opt.default{border-color:var(--accent);background:var(--accent-soft)}
+.opt .ol{font-weight:600;font-size:15px;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.opt .oc{font-size:13px;color:var(--muted);margin-top:3px;display:block}
+.opt .tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--accent-ink)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.chip{font-family:var(--font-mono);font-size:11.5px;background:var(--surface-2);border:1px solid var(--border);
+  border-radius:999px;padding:3px 9px;color:var(--muted)}
+.switch{display:flex;align-items:center;gap:9px;margin-top:12px;min-height:44px;font-size:14px;cursor:pointer}
+.switch input{width:20px;height:20px;accent-color:var(--accent)}
+.answered{font-size:13.5px;color:var(--accent-ink);background:var(--accent-soft);border:1px solid #A9C4B6;
+  border-radius:var(--radius);padding:8px 10px;margin-top:10px}
+
+/* ---------- ledger ---------- */
+.led{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:11px 12px;margin-bottom:9px}
+.led.denied{background:var(--signal-soft);border-color:#E0C4BA}
+.led.undone{opacity:.62}
+.led .act{font-weight:600;font-size:14.5px;display:flex;gap:8px;justify-content:space-between;align-items:baseline}
+.led .why{font-size:13px;color:var(--muted);margin-top:3px}
+.led .when{font-family:var(--font-mono);font-size:11.5px;color:var(--muted);margin-top:6px;display:flex;gap:10px;flex-wrap:wrap}
+.tag-guard{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--signal);border:1px solid #E0C4BA;border-radius:3px;padding:1px 5px;background:#FAEEE9}
+.undobar{display:flex;align-items:center;gap:10px;margin-top:9px;flex-wrap:wrap}
+.cd{font-family:var(--font-mono);font-size:12px;color:var(--signal);font-weight:600}
+
+/* ---------- sheet + toast ---------- */
+.scrim{position:fixed;inset:0;background:rgba(22,33,28,.42);z-index:50;display:none}
+.scrim.open{display:block}
+.sheet{
+  position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--surface);
+  border-top:1px solid var(--border);border-radius:12px 12px 0 0;padding:16px 16px calc(20px + env(safe-area-inset-bottom));
+  max-width:640px;margin:0 auto;transform:translateY(102%);transition:transform .24s cubic-bezier(.22,.7,.3,1);
+}
+.sheet.open{transform:none}
+@media (prefers-reduced-motion:reduce){.sheet{transition:none}}
+.sheet h3{font-family:var(--font-display);font-size:18px;margin:0 0 10px}
+.sheet ol{margin:0 0 12px;padding-inline-start:20px}
+.sheet li{margin-bottom:7px;font-size:14.5px}
+.sheet p{font-size:13px;color:var(--muted);margin:0 0 10px}
+.sheet p>a:only-child{display:inline-flex;align-items:center;min-height:44px}
+.toast{
+  position:fixed;left:50%;transform:translateX(-50%) translateY(14px);bottom:calc(var(--tabbar) + 14px);z-index:70;
+  background:var(--text);color:#F3F6F3;padding:10px 14px;border-radius:var(--radius);font-size:13.5px;
+  max-width:min(92vw,420px);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;
+}
+.toast.show{opacity:1;transform:translateX(-50%)}
+.toast.err{background:var(--signal)}
+
+@media (min-width:760px){
+  .shell{padding-left:20px;padding-right:20px}
+  .cases{grid-template-columns:1fr 1fr}
+  .amount .fig{font-size:44px}
+}
+</style>
+</head>
+<body>
+<div class="shell" id="shell">
+
+<header class="top">
+  <div class="topline">
+    <h1 class="wordmark">Benefit<span>line</span></h1>
+    <span class="badge-mock" id="mockBadge" hidden>mock</span>
+    <span class="grow"></span>
+    <button class="tierchip" id="tierChip" aria-expanded="false" aria-describedby="tierTip">
+      <span class="qm" aria-hidden="true">?</span>
+      <span>0: <b id="t0">0</b> · Haiku: <b id="t1">0</b> · Sonnet: <b id="t2">0</b></span>
+    </button>
+    <span class="qchip" id="qChip">questions asked: <b id="qAsked">0</b> of a possible 6</span>
+  </div>
+  <div class="tip" id="tierTip" role="tooltip">tier 0 = no model call. Haiku answers short replies tier 0 could not parse; Sonnet answers everything else.</div>
+</header>
+
+<!-- ============ 1. CHAT ============ -->
+<section class="panel active" id="panel-chat" role="tabpanel" aria-labelledby="tab-chat">
+  <h2 class="screen">Text line</h2>
+  <p class="screen-sub">One thread. The family answers in their own words; the engine does the arithmetic.</p>
+
+  <div class="picker">
+    <h3>Demo gallery</h3>
+    <p class="fict"><b>Fictional household, real rules.</b> Five households written for the demo. Every amount below comes from policyengine-us on real Oklahoma inputs.</p>
+    <div class="cases" id="caseList"></div>
+    <div class="rowtools">
+      <button class="btn" id="btnPlay" type="button">Play script</button>
+      <button class="btn quiet" id="btnType" type="button" aria-pressed="false">Type it yourself</button>
+      <button class="btn quiet" id="btnReset" type="button">Reset</button>
+    </div>
+  </div>
+
+  <div class="thread" id="thread" role="log" aria-live="polite" aria-relevant="additions" aria-label="Conversation with the family"></div>
+  <form class="composer" id="composer" autocomplete="off">
+    <label class="sr" for="msgInput">Message as the family</label>
+    <input id="msgInput" placeholder="Pick a household to begin" disabled>
+    <button class="btn" id="btnSend" type="submit" disabled>Send</button>
+  </form>
+  <p class="hint" id="chatHint">Play script sends this household's written replies one at a time. Type it yourself unlocks the box.</p>
+</section>
+
+<!-- ============ 2. RESULTS ============ -->
+<section class="panel" id="panel-results" role="tabpanel" aria-labelledby="tab-results">
+  <h2 class="screen">What the engine found</h2>
+  <p class="screen-sub">An estimate from the rules as written. The agency makes the decision.</p>
+  <div id="resultsBody"></div>
+</section>
+
+<!-- ============ 3. BOARD ============ -->
+<section class="panel" id="panel-board" role="tabpanel" aria-labelledby="tab-board">
+  <h2 class="screen">Coordinator board</h2>
+  <p class="screen-sub">Names, phones and addresses stay hidden until someone claims the case.</p>
+  <div class="claimbar">
+    <label class="sr" for="coordName">Your name</label>
+    <input id="coordName" placeholder="Your name" value="">
+    <span class="hint" style="margin:0">used on Claim</span>
+  </div>
+  <div id="boardBody"></div>
+  <div id="boardDetail"></div>
+</section>
+
+<!-- ============ 4. CARDS ============ -->
+<section class="panel" id="panel-cards" role="tabpanel" aria-labelledby="tab-cards">
+  <h2 class="screen">Decision cards</h2>
+  <p class="screen-sub">The only thing that interrupts a coordinator. One tap answers it.</p>
+  <div id="cardsBody"></div>
+</section>
+
+<!-- ============ 5. LEDGER ============ -->
+<section class="panel" id="panel-ledger" role="tabpanel" aria-labelledby="tab-ledger">
+  <h2 class="screen">Ledger</h2>
+  <p class="screen-sub">Every action, why it happened, and ten minutes to take it back.</p>
+  <div id="ledgerBody"></div>
+</section>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</div>
+
+<nav class="tabs" role="tablist" aria-label="Screens">
+  <button role="tab" id="tab-chat" aria-selected="true" aria-controls="panel-chat" data-panel="chat"><span>Chat</span><span class="rule"></span></button>
+  <button role="tab" id="tab-results" aria-selected="false" aria-controls="panel-results" data-panel="results"><span>Results</span><span class="rule"></span></button>
+  <button role="tab" id="tab-board" aria-selected="false" aria-controls="panel-board" data-panel="board"><span>Board</span><span class="rule"></span></button>
+  <button role="tab" id="tab-cards" aria-selected="false" aria-controls="panel-cards" data-panel="cards"><span>Cards <span class="count" id="cardCount" hidden>0</span></span><span class="rule"></span></button>
+  <button role="tab" id="tab-ledger" aria-selected="false" aria-controls="panel-ledger" data-panel="ledger"><span>Ledger</span><span class="rule"></span></button>
+  <button role="tab" id="tab-how" aria-selected="false" aria-haspopup="dialog" data-panel="how"><span>How</span><span class="rule"></span></button>
+</nav>
+
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="sheet-how" role="dialog" aria-modal="true" aria-labelledby="howTitle" inert>
+  <h3 id="howTitle">How it works</h3>
+  <ol>
+    <li>The model asks. It gathers facts one question at a time and writes down which message each answer came from.</li>
+    <li>The engine decides. policyengine-us 2.0.4 computes every amount from the statute; no model ever states a dollar figure.</li>
+    <li>A human is interrupted only by a card. Everything else lands in the ledger with ten minutes to undo it.</li>
+  </ol>
+  <p>Eligibility is computed with <a href="https://github.com/PolicyEngine/policyengine-us" target="_blank" rel="noopener">policyengine-us</a>, licensed AGPL-3.0. Benefitline calls it as a separate program and shows the rule URL under every number.</p>
+  <p><a href="https://github.com/PolicyEngine/policyengine-us#readme" target="_blank" rel="noopener">PolicyEngine README on GitHub</a></p>
+  <button class="btn quiet" id="closeSheet" type="button">Close</button>
+</div>
+<script>
+"use strict";
+/* ============================================================
+   Benefitline single-file client.
+   API_BASE empty  -> MOCK MODE: a local server answering every
+   action with the real policyengine-us 2.0.4 numbers from
+   gallery/ground_truth.json (trimmed to what the page renders).
+   ============================================================ */
+const API_BASE = window.BENEFITLINE_API
+  || new URLSearchParams(location.search).get("api")
+  || "";
+const MOCK = !API_BASE;
+
+function uuid4(){
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c){
+    const r = crypto.getRandomValues(new Uint8Array(1))[0] % 16;
+    const v = c === "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+let SESSION_ID = "";
+try { SESSION_ID = localStorage.getItem("benefitline.session_id") || ""; } catch (e) { SESSION_ID = ""; }
+if (!SESSION_ID || SESSION_ID.length < 33) {
+  SESSION_ID = uuid4() + "-benefitline";
+  try { localStorage.setItem("benefitline.session_id", SESSION_ID); } catch (e) {}
+}
+
+/* ============================================================
+   Engine results, generated from gallery/ground_truth.json by
+   _runs/2026-09-13_phase3_web/gen_mockdata.py and converted to the
+   schemas.py EngineResult shape (programs as a list of ProgramResult).
+   Regenerate after any engine change; do not hand-edit.
+   ============================================================ */
+const ENGINE = {"engine": "policyengine-us", "engine_version": "2.0.4", "year": 2026, "state": "OK"};
+const ENGINE_RESULTS = {
+ "case1_single_mother_two_kids": {
+  "programs": [
+   {
+    "key": "snap",
+    "label": "SNAP (food)",
+    "eligible": true,
+    "amount": 632.0,
+    "unit": "USD/month",
+    "eligible_members": [
+     0,
+     1,
+     2
+    ],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/7/2017#a"
+    ],
+    "note": ""
+   },
+   {
+    "key": "wic",
+    "label": "WIC (women, infants, children)",
+    "eligible": true,
+    "amount": 59.8,
+    "unit": "USD/month",
+    "eligible_members": [
+     2
+    ],
+    "rules": [
+     "https://fns-prod.azureedge.net/sites/default/files/resource-files/WICPC2018FoodPackage-Summary.pdf#page=2",
+     "https://www.law.cornell.edu/cfr/text/7/246.7",
+     "https://www.law.cornell.edu/cfr/text/7/246.10",
+     "https://www.fns.usda.gov/wic/food-packages"
+    ],
+    "note": "Conditional: a WIC clinic must find nutritional risk (7 CFR 246.7(e)); the engine assumes it."
+   },
+   {
+    "key": "medicaid",
+    "label": "Medicaid (SoonerCare)",
+    "eligible": true,
+    "amount": null,
+    "unit": null,
+    "eligible_members": [
+     0,
+     1,
+     2
+    ],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/42/1396a#a_10",
+     "https://www.kff.org/racial-equity-and-health-policy/fact-sheet/key-facts-on-health-coverage-of-immigrants"
+    ],
+    "note": ""
+   },
+   {
+    "key": "tanf",
+    "label": "TANF (cash)",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/month",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/regulations/oklahoma/OAC-340-10-3-59"
+    ],
+    "note": ""
+   },
+   {
+    "key": "eitc",
+    "label": "Earned Income Tax Credit (federal)",
+    "eligible": true,
+    "amount": 7316.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/26/32#a"
+    ],
+    "note": ""
+   },
+   {
+    "key": "ok_eitc",
+    "label": "Oklahoma EITC",
+    "eligible": true,
+    "amount": 269.57,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://oklahoma.gov/content/dam/ok/en/tax/documents/forms/individuals/current/511-EIC.pdf",
+     "https://law.justia.com/codes/oklahoma/title-68/section-68-2357-43/",
+     "https://www.oklegislature.gov/cf_pdf/2021-22%20ENR/hB/HB2962%20ENR.PDF"
+    ],
+    "note": ""
+   },
+   {
+    "key": "ctc",
+    "label": "Child Tax Credit (federal)",
+    "eligible": true,
+    "amount": 4400.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/26/24#a"
+    ],
+    "note": ""
+   },
+   {
+    "key": "refundable_ctc",
+    "label": "Child Tax Credit, refundable part",
+    "eligible": true,
+    "amount": 2901.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/26/24#d"
+    ],
+    "note": ""
+   },
+   {
+    "key": "ssi",
+    "label": "SSI",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/42/1382"
+    ],
+    "note": ""
+   },
+   {
+    "key": "liheap",
+    "label": "LIHEAP (energy assistance)",
+    "eligible": null,
+    "amount": null,
+    "unit": null,
+    "eligible_members": [],
+    "rules": [],
+    "note": "policyengine-us models LIHEAP only for DC and Riverside County, CA. Benefitline flags LIHEAP for Oklahoma DHS screening; no amount is shown.",
+    "not_modeled": true,
+    "agency_url": "https://oklahoma.gov/okdhs/services/liheap.html"
+   }
+  ],
+  "snap_detail": {
+   "snap_gross_income": 1820.0,
+   "snap_net_income": 509.0,
+   "snap_max_allotment": 785.0,
+   "snap_standard_deduction": 209.0,
+   "snap_earned_income_deduction": 364.0,
+   "snap_excess_shelter_expense_deduction": 738.5,
+   "snap_excess_medical_expense_deduction": 0.0,
+   "snap_utility_allowance": 412.0,
+   "snap_expected_contribution": 153.0,
+   "meets_snap_gross_income_test": true,
+   "meets_snap_net_income_test": true
+  },
+  "snap_detail_errors": {},
+  "members": [
+   {
+    "index": 0,
+    "age": 29,
+    "immigration_status": "CITIZEN",
+    "weekly_hours_worked": null,
+    "snap_excluded_member": false,
+    "snap_meets_work_rule": true,
+    "snap_immigration_eligible": true,
+    "medicaid_immigration_eligible": true
+   },
+   {
+    "index": 1,
+    "age": 7,
+    "immigration_status": "CITIZEN",
+    "weekly_hours_worked": null,
+    "snap_excluded_member": false,
+    "snap_meets_work_rule": true,
+    "snap_immigration_eligible": true,
+    "medicaid_immigration_eligible": true
+   },
+   {
+    "index": 2,
+    "age": 4,
+    "immigration_status": "CITIZEN",
+    "weekly_hours_worked": null,
+    "snap_excluded_member": false,
+    "snap_meets_work_rule": true,
+    "snap_immigration_eligible": true,
+    "medicaid_immigration_eligible": true
+   }
+  ]
+ },
+ "case2_couple_newborn": {
+  "programs": [
+   {
+    "key": "snap",
+    "label": "SNAP (food)",
+    "eligible": true,
+    "amount": 357.0,
+    "unit": "USD/month",
+    "eligible_members": [
+     0,
+     1,
+     2
+    ],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/7/2017#a"
+    ],
+    "note": ""
+   },
+   {
+    "key": "wic",
+    "label": "WIC (women, infants, children)",
+    "eligible": true,
+    "amount": 271.72,
+    "unit": "USD/month",
+    "eligible_members": [
+     1,
+     2
+    ],
+    "rules": [
+     "https://fns-prod.azureedge.net/sites/default/files/resource-files/WICPC2018FoodPackage-Summary.pdf#page=2",
+     "https://www.law.cornell.edu/cfr/text/7/246.7",
+     "https://www.law.cornell.edu/cfr/text/7/246.10",
+     "https://www.fns.usda.gov/wic/food-packages"
+    ],
+    "note": "Conditional: a WIC clinic must find nutritional risk (7 CFR 246.7(e)); the engine assumes it."
+   },
+   {
+    "key": "medicaid",
+    "label": "Medicaid (SoonerCare)",
+    "eligible": true,
+    "amount": null,
+    "unit": null,
+    "eligible_members": [
+     0,
+     1,
+     2
+    ],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/42/1396a#a_10",
+     "https://www.kff.org/racial-equity-and-health-policy/fact-sheet/key-facts-on-health-coverage-of-immigrants"
+    ],
+    "note": ""
+   },
+   {
+    "key": "tanf",
+    "label": "TANF (cash)",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/month",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/regulations/oklahoma/OAC-340-10-3-59"
+    ],
+    "note": ""
+   },
+   {
+    "key": "eitc",
+    "label": "Earned Income Tax Credit (federal)",
+    "eligible": true,
+    "amount": 4292.77,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/26/32#a"
+    ],
+    "note": ""
+   },
+   {
+    "key": "ok_eitc",
+    "label": "Oklahoma EITC",
+    "eligible": true,
+    "amount": 125.03,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://oklahoma.gov/content/dam/ok/en/tax/documents/forms/individuals/current/511-EIC.pdf",
+     "https://law.justia.com/codes/oklahoma/title-68/section-68-2357-43/",
+     "https://www.oklegislature.gov/cf_pdf/2021-22%20ENR/hB/HB2962%20ENR.PDF"
+    ],
+    "note": ""
+   },
+   {
+    "key": "ctc",
+    "label": "Child Tax Credit (federal)",
+    "eligible": true,
+    "amount": 2200.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/26/24#a"
+    ],
+    "note": ""
+   },
+   {
+    "key": "refundable_ctc",
+    "label": "Child Tax Credit, refundable part",
+    "eligible": true,
+    "amount": 1700.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/26/24#d"
+    ],
+    "note": ""
+   },
+   {
+    "key": "ssi",
+    "label": "SSI",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/42/1382"
+    ],
+    "note": ""
+   },
+   {
+    "key": "liheap",
+    "label": "LIHEAP (energy assistance)",
+    "eligible": null,
+    "amount": null,
+    "unit": null,
+    "eligible_members": [],
+    "rules": [],
+    "note": "policyengine-us models LIHEAP only for DC and Riverside County, CA. Benefitline flags LIHEAP for Oklahoma DHS screening; no amount is shown.",
+    "not_modeled": true,
+    "agency_url": "https://oklahoma.gov/okdhs/services/liheap.html"
+   }
+  ],
+  "snap_detail": {
+   "snap_gross_income": 2666.67,
+   "snap_net_income": 1425.0,
+   "snap_max_allotment": 785.0,
+   "snap_standard_deduction": 209.0,
+   "snap_earned_income_deduction": 533.33,
+   "snap_excess_shelter_expense_deduction": 499.83,
+   "snap_excess_medical_expense_deduction": 0.0,
+   "snap_utility_allowance": 412.0,
+   "snap_expected_contribution": 428.0,
+   "meets_snap_gross_income_test": true,
+   "meets_snap_net_income_test": true
+  },
+  "snap_detail_errors": {},
+  "members": [
+   {
+    "index": 0,
+    "age": 31,
+    "immigration_status": "CITIZEN",
+    "weekly_hours_worked": null,
+    "snap_excluded_member": false,
+    "snap_meets_work_rule": true,
+    "snap_immigration_eligible": true,
+    "medicaid_immigration_eligible": true
+   },
+   {
+    "index": 1,
+    "age": 28,
+    "immigration_status": "CITIZEN",
+    "weekly_hours_worked": null,
+    "snap_excluded_member": false,
+    "snap_meets_work_rule": true,
+    "snap_immigration_eligible": true,
+    "medicaid_immigration_eligible": true
+   },
+   {
+    "index": 2,
+    "age": 0,
+    "immigration_status": "CITIZEN",
+    "weekly_hours_worked": null,
+    "snap_excluded_member": false,
+    "snap_meets_work_rule": true,
+    "snap_immigration_eligible": true,
+    "medicaid_immigration_eligible": true
+   }
+  ]
+ },
+ "case3_senior_alone": {
+  "programs": [
+   {
+    "key": "snap",
+    "label": "SNAP (food)",
+    "eligible": true,
+    "amount": 148.0,
+    "unit": "USD/month",
+    "eligible_members": [
+     0
+    ],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/7/2017#a"
+    ],
+    "note": ""
+   },
+   {
+    "key": "wic",
+    "label": "WIC (women, infants, children)",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/month",
+    "eligible_members": [],
+    "rules": [
+     "https://fns-prod.azureedge.net/sites/default/files/resource-files/WICPC2018FoodPackage-Summary.pdf#page=2",
+     "https://www.law.cornell.edu/cfr/text/7/246.7",
+     "https://www.law.cornell.edu/cfr/text/7/246.10",
+     "https://www.fns.usda.gov/wic/food-packages"
+    ],
+    "note": "Conditional: a WIC clinic must find nutritional risk (7 CFR 246.7(e)); the engine assumes it."
+   },
+   {
+    "key": "medicaid",
+    "label": "Medicaid (SoonerCare)",
+    "eligible": true,
+    "amount": null,
+    "unit": null,
+    "eligible_members": [
+     0
+    ],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/42/1396a#a_10",
+     "https://www.kff.org/racial-equity-and-health-policy/fact-sheet/key-facts-on-health-coverage-of-immigrants"
+    ],
+    "note": ""
+   },
+   {
+    "key": "tanf",
+    "label": "TANF (cash)",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/month",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/regulations/oklahoma/OAC-340-10-3-59"
+    ],
+    "note": ""
+   },
+   {
+    "key": "eitc",
+    "label": "Earned Income Tax Credit (federal)",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/26/32#a"
+    ],
+    "note": ""
+   },
+   {
+    "key": "ok_eitc",
+    "label": "Oklahoma EITC",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://oklahoma.gov/content/dam/ok/en/tax/documents/forms/individuals/current/511-EIC.pdf",
+     "https://law.justia.com/codes/oklahoma/title-68/section-68-2357-43/",
+     "https://www.oklegislature.gov/cf_pdf/2021-22%20ENR/hB/HB2962%20ENR.PDF"
+    ],
+    "note": ""
+   },
+   {
+    "key": "ctc",
+    "label": "Child Tax Credit (federal)",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/26/24#a"
+    ],
+    "note": ""
+   },
+   {
+    "key": "refundable_ctc",
+    "label": "Child Tax Credit, refundable part",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/26/24#d"
+    ],
+    "note": ""
+   },
+   {
+    "key": "ssi",
+    "label": "SSI",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/42/1382"
+    ],
+    "note": ""
+   },
+   {
+    "key": "liheap",
+    "label": "LIHEAP (energy assistance)",
+    "eligible": null,
+    "amount": null,
+    "unit": null,
+    "eligible_members": [],
+    "rules": [],
+    "note": "policyengine-us models LIHEAP only for DC and Riverside County, CA. Benefitline flags LIHEAP for Oklahoma DHS screening; no amount is shown.",
+    "not_modeled": true,
+    "agency_url": "https://oklahoma.gov/okdhs/services/liheap.html"
+   }
+  ],
+  "snap_detail": {
+   "snap_gross_income": 1250.0,
+   "snap_net_income": 500.0,
+   "snap_max_allotment": 298.0,
+   "snap_standard_deduction": 209.0,
+   "snap_earned_income_deduction": 0.0,
+   "snap_excess_shelter_expense_deduction": 541.5,
+   "snap_excess_medical_expense_deduction": 0.0,
+   "snap_utility_allowance": 412.0,
+   "snap_expected_contribution": 150.0,
+   "meets_snap_gross_income_test": true,
+   "meets_snap_net_income_test": true
+  },
+  "snap_detail_errors": {},
+  "members": [
+   {
+    "index": 0,
+    "age": 71,
+    "immigration_status": "CITIZEN",
+    "weekly_hours_worked": null,
+    "snap_excluded_member": false,
+    "snap_meets_work_rule": true,
+    "snap_immigration_eligible": true,
+    "medicaid_immigration_eligible": true
+   }
+  ]
+ },
+ "case3b_senior_alone_with_medical": {
+  "programs": [
+   {
+    "key": "snap",
+    "label": "SNAP (food)",
+    "eligible": true,
+    "amount": 298.0,
+    "unit": "USD/month",
+    "eligible_members": [
+     0
+    ],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/7/2017#a"
+    ],
+    "note": ""
+   },
+   {
+    "key": "wic",
+    "label": "WIC (women, infants, children)",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/month",
+    "eligible_members": [],
+    "rules": [
+     "https://fns-prod.azureedge.net/sites/default/files/resource-files/WICPC2018FoodPackage-Summary.pdf#page=2",
+     "https://www.law.cornell.edu/cfr/text/7/246.7",
+     "https://www.law.cornell.edu/cfr/text/7/246.10",
+     "https://www.fns.usda.gov/wic/food-packages"
+    ],
+    "note": "Conditional: a WIC clinic must find nutritional risk (7 CFR 246.7(e)); the engine assumes it."
+   },
+   {
+    "key": "medicaid",
+    "label": "Medicaid (SoonerCare)",
+    "eligible": true,
+    "amount": null,
+    "unit": null,
+    "eligible_members": [
+     0
+    ],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/42/1396a#a_10",
+     "https://www.kff.org/racial-equity-and-health-policy/fact-sheet/key-facts-on-health-coverage-of-immigrants"
+    ],
+    "note": ""
+   },
+   {
+    "key": "tanf",
+    "label": "TANF (cash)",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/month",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/regulations/oklahoma/OAC-340-10-3-59"
+    ],
+    "note": ""
+   },
+   {
+    "key": "eitc",
+    "label": "Earned Income Tax Credit (federal)",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/26/32#a"
+    ],
+    "note": ""
+   },
+   {
+    "key": "ok_eitc",
+    "label": "Oklahoma EITC",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://oklahoma.gov/content/dam/ok/en/tax/documents/forms/individuals/current/511-EIC.pdf",
+     "https://law.justia.com/codes/oklahoma/title-68/section-68-2357-43/",
+     "https://www.oklegislature.gov/cf_pdf/2021-22%20ENR/hB/HB2962%20ENR.PDF"
+    ],
+    "note": ""
+   },
+   {
+    "key": "ctc",
+    "label": "Child Tax Credit (federal)",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/26/24#a"
+    ],
+    "note": ""
+   },
+   {
+    "key": "refundable_ctc",
+    "label": "Child Tax Credit, refundable part",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/26/24#d"
+    ],
+    "note": ""
+   },
+   {
+    "key": "ssi",
+    "label": "SSI",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/42/1382"
+    ],
+    "note": ""
+   },
+   {
+    "key": "liheap",
+    "label": "LIHEAP (energy assistance)",
+    "eligible": null,
+    "amount": null,
+    "unit": null,
+    "eligible_members": [],
+    "rules": [],
+    "note": "policyengine-us models LIHEAP only for DC and Riverside County, CA. Benefitline flags LIHEAP for Oklahoma DHS screening; no amount is shown.",
+    "not_modeled": true,
+    "agency_url": "https://oklahoma.gov/okdhs/services/liheap.html"
+   }
+  ],
+  "snap_detail": {
+   "snap_gross_income": 1250.0,
+   "snap_net_income": 0.0,
+   "snap_max_allotment": 298.0,
+   "snap_standard_deduction": 209.0,
+   "snap_earned_income_deduction": 0.0,
+   "snap_excess_shelter_expense_deduction": 715.45,
+   "snap_excess_medical_expense_deduction": 347.9,
+   "snap_utility_allowance": 412.0,
+   "snap_expected_contribution": 0.0,
+   "meets_snap_gross_income_test": true,
+   "meets_snap_net_income_test": true
+  },
+  "snap_detail_errors": {},
+  "members": [
+   {
+    "index": 0,
+    "age": 71,
+    "immigration_status": "CITIZEN",
+    "weekly_hours_worked": null,
+    "snap_excluded_member": false,
+    "snap_meets_work_rule": true,
+    "snap_immigration_eligible": true,
+    "medicaid_immigration_eligible": true
+   }
+  ]
+ },
+ "case4_mixed_status": {
+  "programs": [
+   {
+    "key": "snap",
+    "label": "SNAP (food)",
+    "eligible": true,
+    "amount": 546.0,
+    "unit": "USD/month",
+    "eligible_members": [
+     2,
+     3
+    ],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/7/2017#a"
+    ],
+    "note": ""
+   },
+   {
+    "key": "wic",
+    "label": "WIC (women, infants, children)",
+    "eligible": true,
+    "amount": 59.8,
+    "unit": "USD/month",
+    "eligible_members": [
+     3
+    ],
+    "rules": [
+     "https://fns-prod.azureedge.net/sites/default/files/resource-files/WICPC2018FoodPackage-Summary.pdf#page=2",
+     "https://www.law.cornell.edu/cfr/text/7/246.7",
+     "https://www.law.cornell.edu/cfr/text/7/246.10",
+     "https://www.fns.usda.gov/wic/food-packages"
+    ],
+    "note": "Conditional: a WIC clinic must find nutritional risk (7 CFR 246.7(e)); the engine assumes it."
+   },
+   {
+    "key": "medicaid",
+    "label": "Medicaid (SoonerCare)",
+    "eligible": true,
+    "amount": null,
+    "unit": null,
+    "eligible_members": [
+     2,
+     3
+    ],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/42/1396a#a_10",
+     "https://www.kff.org/racial-equity-and-health-policy/fact-sheet/key-facts-on-health-coverage-of-immigrants"
+    ],
+    "note": ""
+   },
+   {
+    "key": "tanf",
+    "label": "TANF (cash)",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/month",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/regulations/oklahoma/OAC-340-10-3-59"
+    ],
+    "note": ""
+   },
+   {
+    "key": "eitc",
+    "label": "Earned Income Tax Credit (federal)",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/26/32#a"
+    ],
+    "note": ""
+   },
+   {
+    "key": "ok_eitc",
+    "label": "Oklahoma EITC",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://oklahoma.gov/content/dam/ok/en/tax/documents/forms/individuals/current/511-EIC.pdf",
+     "https://law.justia.com/codes/oklahoma/title-68/section-68-2357-43/",
+     "https://www.oklegislature.gov/cf_pdf/2021-22%20ENR/hB/HB2962%20ENR.PDF"
+    ],
+    "note": ""
+   },
+   {
+    "key": "ctc",
+    "label": "Child Tax Credit (federal)",
+    "eligible": true,
+    "amount": 1000.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/26/24#a"
+    ],
+    "note": "Filer has no valid SSN: this is the $500-per-dependent other-dependent credit (26 USC 24(h)(4)), available only if the filer files with an ITIN."
+   },
+   {
+    "key": "refundable_ctc",
+    "label": "Child Tax Credit, refundable part",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/26/24#d"
+    ],
+    "note": "Filer has no valid SSN: this is the $500-per-dependent other-dependent credit (26 USC 24(h)(4)), available only if the filer files with an ITIN."
+   },
+   {
+    "key": "ssi",
+    "label": "SSI",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/42/1382"
+    ],
+    "note": ""
+   },
+   {
+    "key": "liheap",
+    "label": "LIHEAP (energy assistance)",
+    "eligible": null,
+    "amount": null,
+    "unit": null,
+    "eligible_members": [],
+    "rules": [],
+    "note": "policyengine-us models LIHEAP only for DC and Riverside County, CA. Benefitline flags LIHEAP for Oklahoma DHS screening; no amount is shown.",
+    "not_modeled": true,
+    "agency_url": "https://oklahoma.gov/okdhs/services/liheap.html"
+   }
+  ],
+  "snap_detail": {
+   "snap_gross_income": 1083.33,
+   "snap_net_income": 0.0,
+   "snap_max_allotment": 546.0,
+   "snap_standard_deduction": 209.0,
+   "snap_earned_income_deduction": 216.67,
+   "snap_excess_shelter_expense_deduction": 744.0,
+   "snap_excess_medical_expense_deduction": 0.0,
+   "snap_utility_allowance": 412.0,
+   "snap_expected_contribution": 0.0,
+   "meets_snap_gross_income_test": true,
+   "meets_snap_net_income_test": true
+  },
+  "snap_detail_errors": {},
+  "members": [
+   {
+    "index": 0,
+    "age": 38,
+    "immigration_status": "UNDOCUMENTED",
+    "weekly_hours_worked": 40,
+    "snap_excluded_member": true,
+    "snap_meets_work_rule": true,
+    "snap_immigration_eligible": false,
+    "medicaid_immigration_eligible": false
+   },
+   {
+    "index": 1,
+    "age": 35,
+    "immigration_status": "UNDOCUMENTED",
+    "weekly_hours_worked": null,
+    "snap_excluded_member": true,
+    "snap_meets_work_rule": true,
+    "snap_immigration_eligible": false,
+    "medicaid_immigration_eligible": false
+   },
+   {
+    "index": 2,
+    "age": 9,
+    "immigration_status": "CITIZEN",
+    "weekly_hours_worked": null,
+    "snap_excluded_member": false,
+    "snap_meets_work_rule": true,
+    "snap_immigration_eligible": true,
+    "medicaid_immigration_eligible": true
+   },
+   {
+    "index": 3,
+    "age": 3,
+    "immigration_status": "CITIZEN",
+    "weekly_hours_worked": null,
+    "snap_excluded_member": false,
+    "snap_meets_work_rule": true,
+    "snap_immigration_eligible": true,
+    "medicaid_immigration_eligible": true
+   }
+  ]
+ },
+ "case5_on_snap_recert_due": {
+  "programs": [
+   {
+    "key": "snap",
+    "label": "SNAP (food)",
+    "eligible": true,
+    "amount": 433.0,
+    "unit": "USD/month",
+    "eligible_members": [
+     0,
+     1
+    ],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/7/2017#a"
+    ],
+    "note": ""
+   },
+   {
+    "key": "wic",
+    "label": "WIC (women, infants, children)",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/month",
+    "eligible_members": [],
+    "rules": [
+     "https://fns-prod.azureedge.net/sites/default/files/resource-files/WICPC2018FoodPackage-Summary.pdf#page=2",
+     "https://www.law.cornell.edu/cfr/text/7/246.7",
+     "https://www.law.cornell.edu/cfr/text/7/246.10",
+     "https://www.fns.usda.gov/wic/food-packages"
+    ],
+    "note": "Conditional: a WIC clinic must find nutritional risk (7 CFR 246.7(e)); the engine assumes it."
+   },
+   {
+    "key": "medicaid",
+    "label": "Medicaid (SoonerCare)",
+    "eligible": true,
+    "amount": null,
+    "unit": null,
+    "eligible_members": [
+     0,
+     1
+    ],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/42/1396a#a_10",
+     "https://www.kff.org/racial-equity-and-health-policy/fact-sheet/key-facts-on-health-coverage-of-immigrants"
+    ],
+    "note": ""
+   },
+   {
+    "key": "tanf",
+    "label": "TANF (cash)",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/month",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/regulations/oklahoma/OAC-340-10-3-59"
+    ],
+    "note": ""
+   },
+   {
+    "key": "eitc",
+    "label": "Earned Income Tax Credit (federal)",
+    "eligible": true,
+    "amount": 4427.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/26/32#a"
+    ],
+    "note": ""
+   },
+   {
+    "key": "ok_eitc",
+    "label": "Oklahoma EITC",
+    "eligible": true,
+    "amount": 179.2,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://oklahoma.gov/content/dam/ok/en/tax/documents/forms/individuals/current/511-EIC.pdf",
+     "https://law.justia.com/codes/oklahoma/title-68/section-68-2357-43/",
+     "https://www.oklegislature.gov/cf_pdf/2021-22%20ENR/hB/HB2962%20ENR.PDF"
+    ],
+    "note": ""
+   },
+   {
+    "key": "ctc",
+    "label": "Child Tax Credit (federal)",
+    "eligible": true,
+    "amount": 2200.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/26/24#a"
+    ],
+    "note": ""
+   },
+   {
+    "key": "refundable_ctc",
+    "label": "Child Tax Credit, refundable part",
+    "eligible": true,
+    "amount": 1700.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/26/24#d"
+    ],
+    "note": ""
+   },
+   {
+    "key": "ssi",
+    "label": "SSI",
+    "eligible": false,
+    "amount": 0.0,
+    "unit": "USD/year",
+    "eligible_members": [],
+    "rules": [
+     "https://www.law.cornell.edu/uscode/text/42/1382"
+    ],
+    "note": ""
+   },
+   {
+    "key": "liheap",
+    "label": "LIHEAP (energy assistance)",
+    "eligible": null,
+    "amount": null,
+    "unit": null,
+    "eligible_members": [],
+    "rules": [],
+    "note": "policyengine-us models LIHEAP only for DC and Riverside County, CA. Benefitline flags LIHEAP for Oklahoma DHS screening; no amount is shown.",
+    "not_modeled": true,
+    "agency_url": "https://oklahoma.gov/okdhs/services/liheap.html"
+   }
+  ],
+  "snap_detail": {
+   "snap_gross_income": 1583.33,
+   "snap_net_income": 375.0,
+   "snap_max_allotment": 546.0,
+   "snap_standard_deduction": 209.0,
+   "snap_earned_income_deduction": 316.67,
+   "snap_excess_shelter_expense_deduction": 683.17,
+   "snap_excess_medical_expense_deduction": 0.0,
+   "snap_utility_allowance": 412.0,
+   "snap_expected_contribution": 113.0,
+   "meets_snap_gross_income_test": true,
+   "meets_snap_net_income_test": true
+  },
+  "snap_detail_errors": {},
+  "members": [
+   {
+    "index": 0,
+    "age": 44,
+    "immigration_status": "CITIZEN",
+    "weekly_hours_worked": null,
+    "snap_excluded_member": false,
+    "snap_meets_work_rule": true,
+    "snap_immigration_eligible": true,
+    "medicaid_immigration_eligible": true
+   },
+   {
+    "index": 1,
+    "age": 12,
+    "immigration_status": "CITIZEN",
+    "weekly_hours_worked": null,
+    "snap_excluded_member": false,
+    "snap_meets_work_rule": true,
+    "snap_immigration_eligible": true,
+    "medicaid_immigration_eligible": true
+   }
+  ]
+ }
+};
+
+/* ============================================================
+   Gallery: five fictional households, real Oklahoma rules.
+   Scripted replies live here as the fallback for gallery/scripts.json.
+   ============================================================ */
+const FORM_MP001 = { name:"08MP001E, Request for Benefits (rev. 4/14/2026)",
+  url:"https://oklahoma.gov/content/dam/ok/en/okdhs/documents/searchcenter/okdhsformresults/08mp001e.pdf" };
+const FORM_MP002 = { name:"08MP002E, Eligibility Information for Benefits (rev. 3/26/2026)",
+  url:"https://oklahoma.gov/content/dam/ok/en/okdhs/documents/searchcenter/okdhsformresults/08mp002e.pdf" };
+const SOONERCARE = { name:"SoonerCare online application (no paper form number)",
+  url:"https://www.apply.okhca.org/" };
+const OK_WIC = { name:"Oklahoma WIC appointment request",
+  url:"https://oklahoma.gov/health/services/children-family-health/wic.html" };
+
+const GALLERY = [
+  {
+    id:"case1_single_mother_two_kids",
+    name:"Single mother, two children",
+    desc:"Tulsa. 30 hours a week at $14 an hour, rent $950.",
+    langs:["en"],
+    contact:{ name:"Dana R.", phone:"(918) 555-0142", address:"1412 E 15th St, Tulsa, OK 74120" },
+    stages:[{ after:6, key:"case1_single_mother_two_kids" }],
+    q:[
+      { ask:{en:"This is Benefitline. Which state are you in?"},
+        reply:{en:"Tulsa, Oklahoma"}, tier:0 },
+      { ask:{en:"Who lives with you, and how old is everyone?"},
+        reply:{en:"Me and my two kids, they are 7 and 4, and I am 29"}, tier:2 },
+      { ask:{en:"What does the household earn each month, and whose income is it?"},
+        reply:{en:"I work 30 hours a week at 14 dollars an hour, it is all mine"}, tier:2 },
+      { ask:{en:"What is your rent each month?"}, reply:{en:"950"}, tier:0 },
+      { ask:{en:"What do you pay for utilities each month?"},
+        reply:{en:"about 180 for gas and electric"}, tier:1 },
+      { ask:{en:"Last one. Is everyone in the home a US citizen or permanent resident?"},
+        reply:{en:"yes"}, tier:0 }
+    ],
+    explain:{
+      en:"Here is what the rules give your household. SNAP food benefits come to 632 dollars a month, WIC adds 59.80 dollars a month for your 4-year-old, and all three of you qualify for SoonerCare. At tax time the rules add 7,316 dollars of federal EITC, 269.57 dollars of Oklahoma EITC and 4,400 dollars of Child Tax Credit. These are estimates from the rules as written; the agency decides."
+    },
+    plans:[
+      { program:"snap", form:FORM_MP001, deadline_days:30,
+        deadline_rule:"Oklahoma DHS decides a SNAP application within 30 days of the filing date, 7 CFR 273.2(g).",
+        submit:"OKDHSLive or the Tulsa County DHS office",
+        fields:[["Applicant name","Dana R.","contact"],["County of residence","Tulsa","m1"],
+                ["Number in household","3","m2"],["Monthly gross earnings","1,820.00","m3"],
+                ["Monthly rent","950.00","m4"],["Monthly utilities","180.00","m5"]],
+        docs:["Photo ID","Four recent pay stubs","Lease or rent receipt","Utility bill"] },
+      { program:"medicaid", form:SOONERCARE, deadline_days:45,
+        deadline_rule:"SoonerCare decides a non-disability application within 45 days, 42 CFR 435.912.",
+        submit:"apply.okhca.org",
+        fields:[["Head of household","Dana R.","contact"],["Children and ages","7, 4","m2"],
+                ["Annual household income","21,840.00","m3"]],
+        docs:["Proof of Oklahoma residence","Social Security numbers for the children"] },
+      { program:"wic", form:OK_WIC, deadline_days:14,
+        deadline_rule:"WIC certification requires an in-person appointment; the local clinic schedules within 20 days, 7 CFR 246.7(f).",
+        submit:"Tulsa Health Department WIC clinic",
+        fields:[["Child name and age","child, 4","m2"],["Household size","3","m2"]],
+        docs:["Child immunization record","Proof of income"] }
+    ],
+    risk:{ escalate:false, reasons:["Every member is a citizen (msg 6); no program is held."],
+           question_for_coordinator:"", programs_safe:["snap","medicaid","wic"], programs_held:[] },
+    card:null,
+    status:"filed"
+  },
+  {
+    id:"case2_couple_newborn",
+    name:"Couple with a newborn",
+    desc:"Tulsa. One income, a two-month-old at home.",
+    langs:["en"], defaultLang:"en",
+    contact:{ name:"Cody R.", phone:"(918) 555-0198", address:"1418 S Harvard Ave, Tulsa, OK 74112" },
+    stages:[{ after:6, key:"case2_couple_newborn" }],
+    q:[
+      { asks:"state", ask:{en:"This is Benefitline. Which state are you in?"}, reply:{en:"Oklahoma, we are in Tulsa"}, tier:0 },
+      { asks:"ages", ask:{en:"Who lives with you, and how old is everyone?"},
+        reply:{en:"Me, my wife and our baby boy. I am 31, she is 28, the baby is two months old."}, tier:2 },
+      { asks:"income", ask:{en:"What does the household earn each month, and whose income is it?"},
+        reply:{en:"I make about 32,000 a year at my job, my wife is at home"}, tier:2 },
+      { asks:"rent", ask:{en:"What is your rent each month?"}, reply:{en:"1050"}, tier:0 },
+      { asks:"utilities", ask:{en:"What do you pay for utilities each month?"}, reply:{en:"electric and gas run about 200"}, tier:0 },
+      { asks:"pregnancy", ask:{en:"Is your wife breastfeeding the baby?"}, reply:{en:"yes, she is"}, tier:1 }
+    ],
+    explain:{
+      en:"Here is what the rules give your household. SNAP comes to 357 dollars a month, WIC comes to 271.72 dollars a month for your breastfeeding wife and the baby, and all three of you qualify for SoonerCare. At tax time the rules add 4,292.77 dollars of federal EITC, 125.03 dollars of Oklahoma EITC and 2,200 dollars of Child Tax Credit. These are estimates from the rules as written; the agency decides."
+    },
+    plans:[
+      { program:"snap", form:FORM_MP001, deadline_days:30,
+        deadline_rule:"Oklahoma DHS decides a SNAP application within 30 days of the filing date, 7 CFR 273.2(g).",
+        submit:"OKDHSLive or the Tulsa County DHS office",
+        fields:[["Applicant name","Cody R.","contact"],["County of residence","Tulsa","m1"],
+                ["Number in household","3","m2"],["Monthly gross earnings","2,666.67","m3"],
+                ["Monthly rent","1,050.00","m4"],["Monthly utilities","200.00","m5"]],
+        docs:["Photo ID","Four recent pay stubs","Lease","Utility bill","Birth certificate for the baby"] },
+      { program:"wic", form:OK_WIC, deadline_days:14,
+        deadline_rule:"WIC certification requires an in-person appointment; the local clinic schedules within 20 days, 7 CFR 246.7(f).",
+        submit:"Tulsa Health Department WIC clinic",
+        fields:[["Breastfeeding parent","spouse, 28","m2"],["Infant age in months","2","m2"],
+                ["Household size","3","m2"]],
+        docs:["Baby's birth certificate","Proof of income","Immunization record"] },
+      { program:"medicaid", form:SOONERCARE, deadline_days:45,
+        deadline_rule:"SoonerCare decides a non-disability application within 45 days, 42 CFR 435.912.",
+        submit:"apply.okhca.org",
+        fields:[["Head of household","Cody R.","contact"],["Annual household income","32,000.00","m3"]],
+        docs:["Proof of Oklahoma residence"] }
+    ],
+    risk:{ escalate:false, reasons:["No immigration question was raised by the family; nothing is held."],
+           question_for_coordinator:"", programs_safe:["snap","wic","medicaid"], programs_held:[] },
+    card:null,
+    status:"filed"
+  },
+  {
+    id:"case3_senior_alone",
+    name:"Senior living alone",
+    desc:"71 years old, Social Security $1,250 a month, rent $650.",
+    langs:["en"],
+    contact:{ name:"Earl W.", phone:"(405) 555-0117", address:"728 SW 44th St, Oklahoma City, OK 73109" },
+    stages:[
+      { after:6, key:"case3_senior_alone" },
+      { after:7, key:"case3b_senior_alone_with_medical" }
+    ],
+    q:[
+      { ask:{en:"This is Benefitline. Which state are you in?"}, reply:{en:"Oklahoma City"}, tier:0 },
+      { ask:{en:"Who lives with you, and how old is everyone?"}, reply:{en:"Just me, I am 71"}, tier:1 },
+      { ask:{en:"What comes in each month, and where is it from?"},
+        reply:{en:"Social Security, 1,250 a month"}, tier:1 },
+      { ask:{en:"What is your rent each month?"}, reply:{en:"650"}, tier:0 },
+      { ask:{en:"What do you pay for utilities each month?"}, reply:{en:"140"}, tier:0 },
+      { ask:{en:"Are you a US citizen or permanent resident?"}, reply:{en:"yes"}, tier:0 },
+      { ask:{en:"You are over 60, so medical costs change the SNAP number. What do you pay out of pocket each month for medicine, copays and premiums?"},
+        reply:{en:"About 180 in copays and 202.90 for my Medicare premium"}, tier:2 }
+    ],
+    explain:{
+      en:"Here is what the rules give you. SNAP food benefits come to 148 dollars a month and you qualify for SoonerCare. LIHEAP energy help is not computed here, so screen for it with Oklahoma DHS. This is an estimate from the rules as written; the agency decides."
+    },
+    explainByKey:{
+      case3b_senior_alone_with_medical:{
+        en:"Your medical costs change the answer. The rules let a household over 60 deduct out-of-pocket medical spending above 35 dollars a month, which raised your SNAP from 148 to 298 dollars a month. You qualify for SoonerCare. LIHEAP energy help is not computed here, so screen for it with Oklahoma DHS. This is an estimate from the rules as written; the agency decides."
+      }
+    },
+    plans:[
+      { program:"snap", form:FORM_MP001, deadline_days:30,
+        deadline_rule:"Oklahoma DHS decides a SNAP application within 30 days of the filing date, 7 CFR 273.2(g).",
+        submit:"OKDHSLive or the Oklahoma County DHS office",
+        fields:[["Applicant name","Earl W.","contact"],["Age","71","m2"],
+                ["Monthly unearned income","1,250.00","m3"],["Monthly rent","650.00","m4"],
+                ["Monthly utilities","140.00","m5"],["Monthly medical expenses over 35 dollars","382.90","m7"]],
+        docs:["Photo ID","Social Security award letter","Rent receipt","Pharmacy printout","Medicare premium notice"] },
+      { program:"medicaid", form:SOONERCARE, deadline_days:45,
+        deadline_rule:"SoonerCare decides a non-disability application within 45 days, 42 CFR 435.912.",
+        submit:"apply.okhca.org",
+        fields:[["Applicant name","Earl W.","contact"],["Monthly income","1,250.00","m3"]],
+        docs:["Medicare card","Proof of Oklahoma residence"] }
+    ],
+    risk:{ escalate:false, reasons:["Medical expenses are self-reported (msg 7) and need receipts at the interview."],
+           question_for_coordinator:"", programs_safe:["snap","medicaid"], programs_held:[] },
+    card:null,
+    status:"filed"
+  },
+  {
+    id:"case4_mixed_status",
+    name:"Mixed-status family",
+    desc:"Two citizen children, two parents without status. $26,000 a year.",
+    langs:["en"],
+    contact:{ name:"Maria L.", phone:"(918) 555-0164", address:"5219 S Peoria Ave, Tulsa, OK 74105" },
+    stages:[{ after:6, key:"case4_mixed_status" }],
+    q:[
+      { ask:{en:"This is Benefitline. Which state are you in?"}, reply:{en:"Tulsa, Oklahoma"}, tier:0 },
+      { ask:{en:"Who lives with you, and how old is everyone?"},
+        reply:{en:"Four of us. Me 38, my husband 35, and our kids 9 and 3."}, tier:2 },
+      { ask:{en:"What does the household earn each month, and whose income is it?"},
+        reply:{en:"He makes about 26,000 a year at the plant, I stay with the kids"}, tier:2 },
+      { ask:{en:"What is your rent each month?"}, reply:{en:"900"}, tier:0 },
+      { ask:{en:"What do you pay for utilities each month?"}, reply:{en:"170"}, tier:0 },
+      { ask:{en:"Last one. Is everyone in the home a US citizen or permanent resident?"},
+        reply:{en:"The kids were born here. My husband and I do not have papers."}, tier:2 }
+    ],
+    explain:{
+      en:"Here is what the rules give your household. SNAP counts your two children and comes to 546 dollars a month, WIC adds 59.80 dollars a month for your 3-year-old, and both children qualify for SoonerCare. On the tax side the rules give 1,000 dollars of Child Tax Credit as two 500 dollar other-dependent credits, and no federal or Oklahoma EITC. Applying for your children does not put you in an immigration process. A coordinator is reviewing the adult programs before anything is filed for you."
+    },
+    plans:[
+      { program:"snap", form:FORM_MP001, deadline_days:30,
+        deadline_rule:"Oklahoma DHS decides a SNAP application within 30 days of the filing date, 7 CFR 273.2(g).",
+        submit:"OKDHSLive, children only, as a non-applicant parent household",
+        fields:[["Applicant name","Maria L.","contact"],["County of residence","Tulsa","m1"],
+                ["Number in household","4","m2"],["Number applying for benefits","2","m6"],
+                ["Monthly gross earnings","1,083.33","m3"],["Monthly rent","900.00","m4"],
+                ["Monthly utilities","170.00","m5"]],
+        docs:["Birth certificates for both children","Four recent pay stubs","Lease","Utility bill"] },
+      { program:"medicaid", form:SOONERCARE, deadline_days:45,
+        deadline_rule:"SoonerCare decides a non-disability application within 45 days, 42 CFR 435.912.",
+        submit:"apply.okhca.org, children only",
+        fields:[["Children applying","9, 3","m2"],["Annual household income","26,000.00","m3"]],
+        docs:["Children's Social Security numbers","Proof of Oklahoma residence"] }
+    ],
+    risk:{ escalate:true,
+      reasons:["Two adult members reported no immigration status (msg 6); SNAP and Medicaid are held for them.",
+               "Engine gate: members[0] and members[1] snap_immigration_eligible = false."],
+      question_for_coordinator:"File the children's SNAP and SoonerCare now, or hold the whole household until an immigration legal aid call?",
+      programs_safe:["snap","medicaid","wic"], programs_held:[] },
+    card:{
+      situation:"Two children in this household are citizens and qualify; both parents reported no immigration status.\nFiling for the children alone is allowed and does not create a record for the parents.",
+      options:[
+        { label:"File for the children now", consequence:"SNAP 546 a month and SoonerCare start for the two children. Nothing is submitted about the parents." },
+        { label:"Hold until legal aid calls", consequence:"Nothing is filed today. The family waits about 9 days for the Tulsa legal aid clinic; the 30-day clock has not started." },
+        { label:"File and ask legal aid to review", consequence:"Children's applications go in today and a legal aid referral is sent for the parents." }
+      ],
+      def:"File for the children now",
+      deadline_days:2,
+      evidence:["msg 6","engine: members[0].snap_immigration_eligible = false",
+                "engine: snap allotment 546.00 USD/month for 2 eligible members"]
+    },
+    status:"escalated"
+  },
+  {
+    id:"case5_on_snap_recert_due",
+    name:"Already on SNAP, renewal due",
+    desc:"Norman. Parent and a 12-year-old, recertification in 12 days.",
+    langs:["en"],
+    contact:{ name:"Tina B.", phone:"(405) 555-0173", address:"1105 Classen Blvd, Norman, OK 73071" },
+    stages:[{ after:6, key:"case5_on_snap_recert_due" }],
+    q:[
+      { ask:{en:"This is Benefitline. Which state are you in?"}, reply:{en:"Norman, Oklahoma"}, tier:0 },
+      { ask:{en:"Who lives with you, and how old is everyone?"},
+        reply:{en:"Me and my son, I am 44 and he is 12"}, tier:2 },
+      { ask:{en:"What does the household earn each month, and whose income is it?"},
+        reply:{en:"About 19,000 a year"}, tier:1 },
+      { ask:{en:"What is your rent each month?"}, reply:{en:"800"}, tier:0 },
+      { ask:{en:"What do you pay for utilities each month?"}, reply:{en:"160"}, tier:0 },
+      { ask:{en:"Do you already receive any of these benefits?"},
+        reply:{en:"We already get SNAP, the renewal is due in 12 days"}, tier:2 }
+    ],
+    explain:{
+      en:"Here is what the rules give your household at renewal. SNAP comes to 433 dollars a month, and both of you qualify for SoonerCare. At tax time the rules add 4,427 dollars of federal EITC, 179.20 dollars of Oklahoma EITC and 2,200 dollars of Child Tax Credit. Your renewal is due in 12 days; benefits stop the month after that date if the form is not in."
+    },
+    plans:[
+      { program:"snap", form:FORM_MP002, deadline_days:12,
+        deadline_rule:"SNAP benefits end at the close of the certification period unless a renewal is filed, 7 CFR 273.14(b).",
+        submit:"OKDHSLive renewal, Cleveland County",
+        fields:[["Applicant name","Tina B.","contact"],["County of residence","Cleveland","m1"],
+                ["Number in household","2","m2"],["Monthly gross earnings","1,583.33","m3"],
+                ["Monthly rent","800.00","m4"],["Monthly utilities","160.00","m5"],
+                ["Current case status","Active SNAP, renewal due","m6"]],
+        docs:["Four recent pay stubs","Current lease","Utility bill"] },
+      { program:"medicaid", form:SOONERCARE, deadline_days:45,
+        deadline_rule:"SoonerCare decides a non-disability application within 45 days, 42 CFR 435.912.",
+        submit:"apply.okhca.org",
+        fields:[["Head of household","Tina B.","contact"],["Child age","12","m2"]],
+        docs:["Proof of Oklahoma residence"] }
+    ],
+    risk:{ escalate:false, reasons:["Renewal deadline in 12 days (msg 6) is the only exposure."],
+           question_for_coordinator:"", programs_safe:["snap","medicaid"], programs_held:[] },
+    card:null,
+    status:"waiting"
+  }
+];
+const G_BY_ID = {};
+GALLERY.forEach(function(g){ G_BY_ID[g.id] = g; });
+
+const T = {
+  en:{ computing:"One moment, running the rules engine.",
+       done:"Done. Open Results to see every program and the rule behind each number.",
+       held:"A coordinator has to answer one question before anything is filed for the adults. Open Cards." },
+  ar:{ computing:"لحظة من فضلك، يجري تشغيل محرك القواعد.",
+       done:"تم. افتح صفحة النتائج لرؤية كل برنامج والقاعدة وراء كل رقم.",
+       held:"على المنسق الإجابة على سؤال واحد قبل تقديم أي طلب للبالغين. افتح صفحة البطاقات." }
+};
+
+/* ============================================================
+   Mock server. Only runs when API_BASE is empty.
+   ============================================================ */
+const MIN = 60 * 1000;
+function nowISO(){ return new Date().toISOString(); }
+function plusISO(ms){ return new Date(Date.now() + ms).toISOString(); }
+function fact(v, src){ return { value:v, source_msg_id:src, quote:"" }; }
+let SEQ = 0;
+function nid(p){ SEQ += 1; return p + "_" + SEQ.toString(36) + Date.now().toString(36).slice(-4); }
+
+const DB = { cases:{}, order:[], rules:[] };
+
+function newCase(g, lang){
+  const c = {
+    case_id: nid("case"),
+    session_id: SESSION_ID,
+    gallery_case: g.id,
+    facts: {
+      state: null, household_size: null, members: [], rent_monthly: null, utilities_monthly: null,
+      already_receives: [], recert_due_date: null, language: lang,
+      contact_name: fact(g.contact.name, "contact"),
+      contact_phone: fact(g.contact.phone, "contact"),
+      address: fact(g.contact.address, "contact")
+    },
+    transcript: [], questions_asked: 0, question_budget: MAX_QUESTIONS, tier_counts: {"0":0,"1":0,"2":0},
+    engine_result: null, filing_plans: [], risk: null, explanation: null,
+    cards: [], ledger: [], claimed_by: null, status: "intake", updated_at: nowISO(),
+    _qi: 0
+  };
+  DB.cases[c.case_id] = c;
+  DB.order.push(c.case_id);
+  askNext(c);
+  return c;
+}
+function L(c){ return c.facts.language === "ar" ? "ar" : "en"; }
+function textFor(obj, lang){ return obj[lang] || obj.en; }
+
+function push(c, role, text, tier, id){
+  c.transcript.push({ id:id, role:role, text:text, at: nowISO(), tier:tier });
+  if (tier !== null && tier !== undefined) c.tier_counts[String(tier)] += 1;
+  c.updated_at = nowISO();
+}
+function tier0(c, n){ c.tier_counts["0"] += (n || 1); }
+
+function askNext(c){
+  const g = G_BY_ID[c.gallery_case];
+  if (c._qi >= g.q.length) return;
+  const q = g.q[c._qi];
+  push(c, "agent", textFor(q.ask, L(c)), 0, "a" + (c._qi + 1));
+  c.questions_asked += 1;
+}
+
+function guessTier(text){
+  const t = text.trim();
+  if (/^(yes|no|نعم|لا)$/i.test(t)) return 0;
+  if (/^[٠-٩\d.,$ ]+$/.test(t)) return 0;
+  const words = t.split(/\s+/).filter(Boolean).length;
+  return words <= 6 ? 1 : 2;
+}
+
+function stageKeyFor(g, qi){
+  let key = null;
+  g.stages.forEach(function(s){ if (qi >= s.after) key = s.key; });
+  return key;
+}
+
+function ledgerRow(c, action, why, opts){
+  opts = opts || {};
+  c.ledger.unshift({
+    entry_id: nid("led"), case_id: c.case_id, action: action, why: why, at: nowISO(),
+    undo: opts.undo || "", final_at: opts.window ? plusISO(10 * MIN) : null,
+    undone: false, tier: opts.tier === undefined ? 0 : opts.tier, denied: !!opts.denied
+  });
+}
+
+function buildPlans(g){
+  return g.plans.map(function(p){
+    return {
+      program: p.program, form_name: p.form.name, form_url: p.form.url,
+      fields: p.fields.map(function(f){ return { form_field:f[0], value:f[1], source_msg_id:f[2] }; }),
+      documents_needed: p.docs,
+      deadline: new Date(Date.now() + p.deadline_days * 864e5).toISOString().slice(0,10),
+      deadline_rule: p.deadline_rule, submit_route: p.submit
+    };
+  });
+}
+
+function compute(c, key){
+  const g = G_BY_ID[c.gallery_case];
+  const er = ENGINE_RESULTS[key];
+  const lang = L(c);
+  const first = !c.engine_result;
+
+  const snapAmt = er.programs.filter(function(p){ return p.key === "snap"; })[0].amount;
+
+  c.engine_result = {
+    engine: ENGINE.engine, engine_version: ENGINE.engine_version, year: ENGINE.year,
+    state: ENGINE.state, programs: er.programs, snap_detail: er.snap_detail,
+    snap_detail_errors: er.snap_detail_errors || {}, members: er.members
+  };
+  tier0(c, 1);
+  ledgerRow(c, "Ran policyengine-us " + ENGINE.engine_version + " on the gathered facts",
+    er.programs.length + " programs computed for OK, tax year " + ENGINE.year + "; SNAP allotment " +
+    snapAmt.toFixed(2) + " USD/month", { tier:0 });
+
+  const explainSrc = (g.explainByKey && g.explainByKey[key]) || g.explain;
+  c.explanation = {
+    language: lang,
+    message_to_family: textFor(explainSrc, lang),
+    per_program: er.programs.filter(function(p){ return p.eligible; }).map(function(p){
+      return { key:p.key, one_line:p.label, rule_url:(p.rules[0] || "") };
+    })
+  };
+  c.filing_plans = buildPlans(g);
+  tier0(c, 2);
+  if (first) {
+    ledgerRow(c, "Filled " + c.filing_plans.length + " Oklahoma forms from cited facts",
+      "every field carries the message id it came from; no free text was invented", { tier:0 });
+  } else {
+    ledgerRow(c, "Recomputed SNAP with the medical expense deduction",
+      "excess medical deduction " + er.snap_detail.snap_excess_medical_expense_deduction.toFixed(2) +
+      " USD/month raised the allotment to " + snapAmt.toFixed(2) + " USD/month",
+      { tier:0, undo:"drop the medical expenses and recompute", window:true });
+  }
+
+  c.risk = { escalate: g.risk.escalate, reasons: g.risk.reasons,
+    question_for_coordinator: g.risk.question_for_coordinator,
+    programs_safe_to_file: g.risk.programs_safe, programs_held: g.risk.programs_held };
+
+  if (g.risk.escalate && first) {
+    const card = g.card;
+    c.cards.push({
+      card_id: nid("card"), case_id: c.case_id, situation: card.situation, options: card.options,
+      "default": card.def,
+      deadline: new Date(Date.now() + card.deadline_days * 864e5).toISOString().slice(0,10),
+      evidence: card.evidence, created_at: nowISO(), answered: null, make_standing_rule: false
+    });
+    c.status = "escalated";
+    ledgerRow(c, "Held the adult SNAP and SoonerCare filings",
+      "risk report: two members reported no immigration status; one Decision Card raised for a coordinator",
+      { tier:1, undo:"release the hold and file for the whole household", window:true });
+    ledgerRow(c, "Refused to reveal the contact address for the board preview",
+      "MaskUntilClaimed: the case is not claimed yet", { denied:true, tier:0 });
+  } else {
+    c.status = g.status === "escalated" ? "computed" : g.status;
+    if (first) {
+      c.filing_plans.forEach(function(p){
+        ledgerRow(c, "Filed " + p.program.toUpperCase() + " on " + p.form_name.split(",")[0],
+          "engine result plus the cited facts; deadline " + p.deadline + " under " + p.deadline_rule,
+          { tier:0, undo:"withdraw before it is transmitted", window:true });
+      });
+      ledgerRow(c, "Refused to reveal the contact phone for the board preview",
+        "MaskUntilClaimed: the case is not claimed yet", { denied:true, tier:0 });
+    }
+  }
+  c.updated_at = nowISO();
+}
+
+function step(c, message){
+  const g = G_BY_ID[c.gallery_case];
+  const lang = L(c);
+  const qi = c._qi;
+  const scripted = g.q[qi];
+  // the scripted tier applies to the line the Play button actually sent, which is the
+  // fetched gallery/scripts.json reply when one is served and the embedded reply otherwise
+  const scriptedText = scripted ? scriptFor(c.gallery_case, lang)[qi] : null;
+  const tier = scripted && scriptedText === message ? scripted.tier : guessTier(message);
+  push(c, "family", message, tier, "m" + (qi + 1));
+  c._qi += 1;
+  tier0(c, 1); // missing_facts recomputed deterministically
+
+  const key = stageKeyFor(g, c._qi);
+  const prevKey = stageKeyFor(g, qi);
+  if (key && key !== prevKey) {
+    compute(c, key);
+    const done = c.status === "escalated" ? T[lang].held : T[lang].done;
+    push(c, "agent", done, 0, "a" + (c._qi + 1) + "r");
+  }
+  if (c._qi < g.q.length) askNext(c);
+  return c;
+}
+
+function completed(gid, lang){
+  const g = G_BY_ID[gid];
+  const c = newCase(g, lang || (g.defaultLang || "en"));
+  while (c._qi < g.q.length) step(c, textFor(g.q[c._qi].reply, L(c)));
+  return c;
+}
+
+function summary(c){
+  const clone = JSON.parse(JSON.stringify(c));
+  delete clone._qi;
+  if (!c.claimed_by) {
+    clone.facts.contact_name = { value:"•••• (claim to reveal)", source_msg_id:"contact", quote:"" };
+    clone.facts.contact_phone = { value:"•••• (claim to reveal)", source_msg_id:"contact", quote:"" };
+    clone.facts.address = { value:"•••• (claim to reveal)", source_msg_id:"contact", quote:"" };
+    (clone.filing_plans || []).forEach(function(pl){
+      (pl.fields || []).forEach(function(f){
+        if (f.source_msg_id === "contact") f.value = "•••• (claim to reveal)";
+      });
+    });
+    const raw = [c.facts.contact_name, c.facts.contact_phone, c.facts.address]
+      .map(function(f){ return f && f.value ? String(f.value) : ""; })
+      .filter(function(v){ return v.length > 3; });
+    (clone.transcript || []).forEach(function(m){
+      raw.forEach(function(v){ m.text = m.text.split(v).join("••••"); });
+    });
+    clone.masked = true;
+  }
+  clone.gallery_name = G_BY_ID[c.gallery_case] ? G_BY_ID[c.gallery_case].name : c.gallery_case;
+  return clone;
+}
+function out(c){
+  if (!c) return null;
+  const clone = JSON.parse(JSON.stringify(c));
+  delete clone._qi;
+  clone.gallery_name = G_BY_ID[c.gallery_case] ? G_BY_ID[c.gallery_case].name : c.gallery_case;
+  return clone;
+}
+
+let SEEDED = false;
+function seed(){
+  if (SEEDED) return;
+  SEEDED = true;
+  completed("case5_on_snap_recert_due", "en");
+  completed("case4_mixed_status", "en");
+  completed("case3_senior_alone", "en");
+}
+
+function mockHandle(p){
+  seed();
+  const a = p.action;
+  if (a === "gallery") {
+    return { ok:true, case:null, board:null, error:null, gallery: GALLERY.map(function(g){
+      return { id:g.id, name:g.name, description:g.desc, languages:g.langs, fictional:true };
+    })};
+  }
+  if (a === "start_case") {
+    const g = G_BY_ID[p.gallery_case];
+    if (!g) return { ok:false, case:null, board:null, gallery:null, error:"unknown gallery case" };
+    const lang = p.lang || g.defaultLang || "en";
+    return { ok:true, case: out(newCase(g, lang)), board:null, gallery:null, error:null };
+  }
+  if (a === "chat") {
+    const c = DB.cases[p.case_id];
+    if (!c) return { ok:false, case:null, board:null, gallery:null, error:"unknown case_id" };
+    if (typeof p.message !== "string" || !p.message.trim()) {
+      return { ok:false, case:out(c), board:null, gallery:null, error:"empty message" };
+    }
+    if (c._qi >= G_BY_ID[c.gallery_case].q.length) {
+      push(c, "agent", L(c) === "ar"
+        ? "انتهى جمع المعلومات. النتائج جاهزة في صفحة النتائج."
+        : "Intake is finished. Everything is on the Results tab.", 0, "a_end" + c.transcript.length);
+      return { ok:true, case: out(c), board:null, gallery:null, error:null };
+    }
+    return { ok:true, case: out(step(c, p.message)), board:null, gallery:null, error:null };
+  }
+  if (a === "board") {
+    const rows = DB.order.map(function(id){ return summary(DB.cases[id]); })
+      .filter(function(c){ return c.transcript.length > 1; })
+      .sort(function(x, y){ return x.updated_at < y.updated_at ? 1 : -1; });
+    return { ok:true, case:null, board: rows, gallery:null, error:null };
+  }
+  if (a === "claim") {
+    const c = DB.cases[p.case_id];
+    if (!c) return { ok:false, case:null, board:null, gallery:null, error:"unknown case_id" };
+    if (!p.coordinator) return { ok:false, case:null, board:null, gallery:null, error:"a coordinator name is required to claim" };
+    c.claimed_by = p.coordinator;
+    ledgerRow(c, "Claimed by " + p.coordinator, "identifiers unmasked for this coordinator only",
+      { tier:0, undo:"release the claim", window:true });
+    return { ok:true, case: summary(c), board:null, gallery:null, error:null };
+  }
+  if (a === "answer_card") {
+    const c = DB.cases[p.case_id];
+    if (!c) return { ok:false, case:null, board:null, gallery:null, error:"unknown case_id" };
+    const card = c.cards.filter(function(k){ return k.card_id === p.card_id; })[0];
+    if (!card) return { ok:false, case:out(c), board:null, gallery:null, error:"unknown card_id" };
+    card.answered = p.option;
+    card.make_standing_rule = !!p.make_standing_rule;
+    ledgerRow(c, "Card answered: " + p.option, "coordinator tap on card " + card.card_id,
+      { tier:0, undo:"reopen the card and choose again", window:true });
+    if (p.make_standing_rule) {
+      DB.rules.push({ situation: card.situation, answer: p.option });
+      ledgerRow(c, "Standing rule saved", "the same situation will be answered \"" + p.option + "\" without a card",
+        { tier:0, undo:"delete the standing rule", window:true });
+    }
+    if (/^File for the children now/.test(p.option) || /^File and ask/.test(p.option)) {
+      c.status = "filed";
+      c.filing_plans.forEach(function(pl){
+        ledgerRow(c, "Filed " + pl.program.toUpperCase() + " for the two children on " + pl.form_name.split(",")[0],
+          "card answer \"" + p.option + "\"; deadline " + pl.deadline,
+          { tier:0, undo:"withdraw before it is transmitted", window:true });
+      });
+    }
+    return { ok:true, case: out(c), board:null, gallery:null, error:null };
+  }
+  if (a === "undo") {
+    const c = DB.cases[p.case_id];
+    if (!c) return { ok:false, case:null, board:null, gallery:null, error:"unknown case_id" };
+    const e = c.ledger.filter(function(x){ return x.entry_id === p.entry_id; })[0];
+    if (!e) return { ok:false, case:out(c), board:null, gallery:null, error:"unknown entry_id" };
+    if (!e.final_at || new Date(e.final_at).getTime() < Date.now()) {
+      return { ok:false, case:out(c), board:null, gallery:null, error:"the ten minute window on that action has closed" };
+    }
+    e.undone = true;
+    if (/^Card answered/.test(e.action)) {
+      c.cards.forEach(function(k){ k.answered = null; });
+      c.status = "escalated";
+    }
+    if (/^Claimed by/.test(e.action)) c.claimed_by = null;
+    ledgerRow(c, "Undone: " + e.action, "a coordinator vetoed it inside the ten minute window", { tier:0 });
+    return { ok:true, case: out(c), board:null, gallery:null, error:null };
+  }
+  if (a === "reset") {
+    DB.cases = {}; DB.order = []; DB.rules = []; SEEDED = false; seed();
+    return { ok:true, case:null, board:null, gallery:null, error:null };
+  }
+  return { ok:false, case:null, board:null, gallery:null, error:"unknown action: " + String(a) };
+}
+
+/* ---------- transport ---------- */
+async function api(payload){
+  const body = Object.assign({ session_id: SESSION_ID }, payload);
+  if (MOCK) {
+    await new Promise(function(r){ setTimeout(r, 120); });
+    return mockHandle(body);
+  }
+  const res = await fetch(API_BASE, {
+    method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body)
+  });
+  if (!res.ok) throw new Error("server returned " + res.status);
+  return await res.json();
+}
+
+/* ============================================================
+   View
+   ============================================================ */
+const $ = function(id){ return document.getElementById(id); };
+/* D13: agent and explanation text arrives as light markdown from the model.
+   Render it into nodes (never innerHTML): **bold** becomes <strong>, "---" rules
+   and leading "#" heading markers are dropped, bare URLs become links, and
+   everything else stays literal text. Newlines stay in the text so the existing
+   white-space rules keep the same layout. */
+function mdLinkify(parent, text){
+  const re = /https?:\/\/[^\s<>()\[\]"']+/g;
+  var last = 0, m;
+  while ((m = re.exec(text)) !== null) {
+    const url = m[0].replace(/[.,;:!?)\]]+$/, "");
+    if (m.index > last) parent.appendChild(document.createTextNode(text.slice(last, m.index)));
+    const a = el("a", null, url);
+    a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer";
+    parent.appendChild(a);
+    last = m.index + url.length;
+    re.lastIndex = last;
+  }
+  if (last < text.length) parent.appendChild(document.createTextNode(text.slice(last)));
+}
+function renderRich(node, text){
+  node.textContent = "";
+  const src = (text === null || text === undefined) ? "" : String(text);
+  const kept = src.split(/\r?\n/).filter(function(line){
+    return !/^\s*(?:-{3,}|\*{3,}|_{3,})\s*$/.test(line);
+  }).map(function(line){
+    return line.replace(/^\s{0,3}#{1,6}\s+/, "");
+  }).join("\n");
+  kept.split("**").forEach(function(part, i){
+    if (part === "") return;
+    if (i % 2 === 1) { const st = el("strong"); mdLinkify(st, part); node.appendChild(st); }
+    else mdLinkify(node, part);
+  });
+  return node;
+}
+function el(tag, cls, txt){
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (txt !== undefined && txt !== null) n.textContent = txt;
+  return n;
+}
+/* D15: the intake budget of record is src/benefitline/intake.py MAX_QUESTIONS = 6.
+   The page shows that number, preferring a budget the case record carries. */
+const MAX_QUESTIONS = 6;
+const state = {
+  gid: null, lang: "en", caseRec: null, board: [], openCase: null,
+  playing: false, typeMode: false, scripts: null
+};
+
+const money = new Intl.NumberFormat("en-US", { style:"currency", currency:"USD", maximumFractionDigits:2 });
+function fmtMoney(v){ return money.format(v).replace(/\.00$/, ""); }
+function fmtNum(v){ return new Intl.NumberFormat("en-US", { minimumFractionDigits:2, maximumFractionDigits:2 }).format(v); }
+function unitWord(u){ return u === "USD/month" ? "per month" : u === "USD/year" ? "per year" : ""; }
+function localTime(iso){
+  if (!iso) return "";
+  const d = new Date(iso);
+  return d.toLocaleTimeString([], { hour:"2-digit", minute:"2-digit" });
+}
+function localStamp(iso){
+  if (!iso) return "";
+  const d = new Date(iso);
+  return d.toLocaleDateString([], { month:"short", day:"numeric" }) + " " + localTime(iso);
+}
+function localDate(d){
+  if (!d) return "";
+  const dt = new Date(d + "T00:00:00");
+  return dt.toLocaleDateString([], { month:"short", day:"numeric", year:"numeric" });
+}
+function citeLabel(id){
+  return /^m\d+$/.test(id) ? "msg " + id.slice(1) : id;
+}
+
+let toastTimer = null;
+function toast(msg, isErr){
+  const t = $("toast");
+  t.textContent = msg;
+  t.classList.toggle("err", !!isErr);
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ t.classList.remove("show"); }, 4200);
+}
+
+async function call(payload){
+  try {
+    const r = await api(payload);
+    if (!r || !r.ok) { toast((r && r.error) || "the server refused that action", true); return null; }
+    return r;
+  } catch (e) {
+    toast("could not reach the agent: " + e.message, true);
+    return null;
+  }
+}
+
+/* ---------- tabs ---------- */
+const PANELS = ["chat","results","board","cards","ledger"];
+function showPanel(name){
+  if (name === "how") { openSheet(true); return; }
+  PANELS.forEach(function(p){ $("panel-" + p).classList.toggle("active", p === name); });
+  document.querySelectorAll("nav.tabs button").forEach(function(b){
+    b.setAttribute("aria-selected", String(b.dataset.panel === name));
+  });
+  if (name === "board") loadBoard();
+  window.scrollTo({ top:0, behavior:"instant" in window ? "instant" : "auto" });
+}
+document.querySelectorAll("nav.tabs button").forEach(function(b){
+  b.addEventListener("click", function(){ showPanel(b.dataset.panel); });
+});
+function openSheet(open){
+  $("sheet-how").classList.toggle("open", open);
+  $("sheet-how").toggleAttribute("inert", !open);
+  $("scrim").classList.toggle("open", open);
+  document.querySelectorAll("nav.tabs button").forEach(function(b){
+    if (b.dataset.panel === "how") b.setAttribute("aria-selected", String(open));
+  });
+  if (open) $("closeSheet").focus();
+}
+$("scrim").addEventListener("click", function(){ openSheet(false); showPanel("chat"); });
+$("closeSheet").addEventListener("click", function(){ openSheet(false); showPanel("chat"); });
+document.addEventListener("keydown", function(e){
+  if (e.key === "Escape" && $("sheet-how").classList.contains("open")) { openSheet(false); showPanel("chat"); }
+});
+
+/* ---------- tier chip ---------- */
+$("tierChip").addEventListener("click", function(){
+  const open = $("tierTip").classList.toggle("open");
+  $("tierChip").setAttribute("aria-expanded", String(open));
+});
+function renderTier(){
+  const t = state.caseRec ? state.caseRec.tier_counts : { "0":0, "1":0, "2":0 };
+  $("t0").textContent = t["0"] || 0;
+  $("t1").textContent = t["1"] || 0;
+  $("t2").textContent = t["2"] || 0;
+  const n = state.caseRec ? (state.caseRec.questions_asked || 0) : 0;
+  const budget = (state.caseRec && state.caseRec.question_budget) || MAX_QUESTIONS;
+  const ar = state.caseRec && state.caseRec.facts && state.caseRec.facts.language === "ar";
+  const chip = $("qChip");
+  chip.textContent = "";
+  const inner = el("span");
+  const bold = el("b", null, String(n));
+  if (ar) {
+    chip.setAttribute("dir", "rtl");
+    inner.appendChild(document.createTextNode("الأسئلة: "));
+    inner.appendChild(bold);
+    inner.appendChild(document.createTextNode(" من " + budget));
+  } else {
+    chip.setAttribute("dir", "ltr");
+    inner.appendChild(document.createTextNode("questions asked: "));
+    inner.appendChild(bold);
+    inner.appendChild(document.createTextNode(" of a possible " + budget));
+  }
+  chip.appendChild(inner);
+}
+
+/* ---------- gallery picker ---------- */
+function renderGallery(list){
+  const box = $("caseList");
+  box.textContent = "";
+  list.forEach(function(g){
+    const b = el("button", "case-btn");
+    b.type = "button";
+    b.setAttribute("aria-pressed", String(state.gid === g.id));
+    b.appendChild(el("span", "cn", g.name));
+    b.appendChild(el("span", "cd", g.description));
+    b.addEventListener("click", function(){ pickCase(g); });
+    box.appendChild(b);
+  });
+}
+// Language detection stays in the client (facts.language drives dir/lang on every pane);
+// no gallery script ships a non-English transcript, so the picker has no language toggle.
+function pickCase(g){
+  state.gid = g.id;
+  state.lang = (g.languages && g.languages.length === 1) ? g.languages[0] : "en";
+  startCase();
+}
+
+async function startCase(){
+  state.playing = false;
+  const r = await call({ action:"start_case", gallery_case: state.gid, lang: state.lang });
+  if (!r) return;
+  state.caseRec = r.case;
+  renderAll();
+  $("msgInput").disabled = !state.typeMode;
+  $("btnSend").disabled = !state.typeMode;
+  $("msgInput").placeholder = state.typeMode ? "Answer as the family" : "Press Play script, or Type it yourself";
+  renderGallery(GALLERY.map(function(g){ return { id:g.id, name:g.name, description:g.desc, languages:g.langs }; }));
+}
+
+/* ---------- chat ---------- */
+/* D7: #thread is an aria-live log. Rebuilding it wholesale made a screen reader
+   re-announce the whole conversation on every turn, so rendering is append-only:
+   rows already in the DOM are left alone and only new transcript entries are
+   appended (a full rebuild happens only when the case itself changes). */
+var threadRendered = { id: null, n: 0 };
+function threadRow(m){
+  const fam = m.role === "family";
+  const row = el("div", "msg " + (fam ? "family" : "agent"));
+  const bub = el("div", "bub");
+  bub.appendChild(fam ? el("div", null, m.text) : renderRich(el("div"), m.text));
+  const meta = el("div", "meta",
+    localTime(m.at) + (m.tier === null || m.tier === undefined ? "" : "  ·  tier " + m.tier));
+  bub.appendChild(meta);
+  row.appendChild(bub);
+  return row;
+}
+function renderThread(){
+  const th = $("thread");
+  const ar = state.caseRec && state.caseRec.facts.language === "ar";
+  th.setAttribute("dir", ar ? "rtl" : "ltr");
+  th.setAttribute("lang", ar ? "ar" : "en");
+  if (!state.caseRec) {
+    th.textContent = "";
+    threadRendered = { id: null, n: 0 };
+    th.appendChild(el("p", "hint", "Pick a household above to open a thread."));
+    return;
+  }
+  const tr = state.caseRec.transcript;
+  if (threadRendered.id !== state.caseRec.case_id || threadRendered.n > tr.length) {
+    th.textContent = "";
+    threadRendered = { id: state.caseRec.case_id, n: 0 };
+  }
+  const typing = th.querySelector(".typingrow");
+  if (typing) typing.remove();
+  for (var i = threadRendered.n; i < tr.length; i++) th.appendChild(threadRow(tr[i]));
+  if (typing) th.appendChild(typing);
+  threadRendered = { id: state.caseRec.case_id, n: tr.length };
+  th.scrollTop = th.scrollHeight;
+}
+function showTyping(on){
+  const th = $("thread");
+  const old = th.querySelector(".typingrow");
+  if (old) old.remove();
+  if (!on) return;
+  const row = el("div", "msg agent typingrow");
+  const bub = el("div", "bub typing");
+  bub.appendChild(el("span")); bub.appendChild(el("span")); bub.appendChild(el("span"));
+  row.appendChild(bub);
+  th.appendChild(row);
+  th.scrollTop = th.scrollHeight;
+}
+
+async function sendMessage(text){
+  if (!state.caseRec) { toast("pick a household first", true); return; }
+  showTyping(true);
+  const r = await call({ action:"chat", case_id: state.caseRec.case_id, message: text, lang: state.lang });
+  showTyping(false);
+  if (!r) return;
+  state.caseRec = r.case;
+  renderAll();
+}
+$("composer").addEventListener("submit", function(e){
+  e.preventDefault();
+  const v = $("msgInput").value.trim();
+  if (!v) return;
+  $("msgInput").value = "";
+  sendMessage(v);
+});
+$("btnType").addEventListener("click", function(){
+  state.typeMode = !state.typeMode;
+  $("btnType").setAttribute("aria-pressed", String(state.typeMode));
+  $("msgInput").disabled = !state.typeMode || !state.caseRec;
+  $("btnSend").disabled = $("msgInput").disabled;
+  $("msgInput").placeholder = state.typeMode ? "Answer as the family" : "Press Play script, or Type it yourself";
+  if (state.typeMode) $("msgInput").focus();
+});
+$("btnReset").addEventListener("click", async function(){
+  await call({ action:"reset" });
+  state.caseRec = null; state.gid = null; state.openCase = null; state.playing = false;
+  renderGallery(GALLERY.map(function(g){ return { id:g.id, name:g.name, description:g.desc, languages:g.langs }; }));
+  renderAll();
+  toast("gallery reset");
+});
+
+function scriptRepliesByKey(gid, lang){
+  // gallery/scripts.json nests the cases under "cases"; each reply carries the fact
+  // key it answers ("asks"). The embedded replies are the fallback for a key the file
+  // does not carry.
+  const g = G_BY_ID[gid];
+  const rec = state.scripts && state.scripts.cases && state.scripts.cases[gid];
+  const byKey = {};
+  g.q.forEach(function(q){ if (q.asks) byKey[q.asks] = q.reply[lang] || q.reply.en; });
+  if (rec) (rec.replies || []).forEach(function(r){
+    const t = r[lang] || r.en;
+    if (typeof t === "string" && t) byKey[r.asks] = t;
+  });
+  return byKey;
+}
+function scriptFor(gid, lang){
+  const byKey = scriptRepliesByKey(gid, lang);
+  return G_BY_ID[gid].q.map(function(q){ return (q.asks && byKey[q.asks]) || q.reply[lang] || q.reply.en; });
+}
+function lastAsked(){
+  // The fact key the live agent's latest message asks for ("asks" on the transcript
+  // entry); "" when it asked nothing, so the script stops instead of guessing.
+  const tr = (state.caseRec && state.caseRec.transcript) || [];
+  for (let i = tr.length - 1; i >= 0; i--) {
+    if (tr[i].role === "agent") return tr[i].asks || "";
+  }
+  return "";
+}
+$("btnPlay").addEventListener("click", async function(){
+  if (!state.gid) { toast("pick a household first", true); return; }
+  if (state.playing) return;
+  state.playing = true;
+  $("btnPlay").disabled = true;
+  if (MOCK) {
+    const lines = scriptFor(state.gid, state.lang);
+    for (let i = 0; i < lines.length; i++) {
+      if (!state.playing) break;
+      await new Promise(function(r){ setTimeout(r, 700); });
+      await sendMessage(lines[i]);
+    }
+  } else {
+    // Live: answer whatever the agent just asked, keyed by fact, never by position.
+    // The agent decides the order; a script that ignores it feeds the wrong fact.
+    const byKey = scriptRepliesByKey(state.gid, state.lang);
+    const rec = state.scripts && state.scripts.cases && state.scripts.cases[state.gid];
+    const hasAgentTurn = ((state.caseRec && state.caseRec.transcript) || []).some(function(e){ return e.role === "agent"; });
+    if (!hasAgentTurn) {
+      // A fresh case has an empty transcript: the family speaks first (the script's opening
+      // line), and the agent's reply carries the first `asks` key.
+      const opening = rec && rec.opening && (rec.opening[state.lang] || rec.opening.en);
+      await sendMessage(opening || G_BY_ID[state.gid].q[0].reply[state.lang] || G_BY_ID[state.gid].q[0].reply.en);
+    }
+    for (let i = 0; i < 20 && state.playing; i++) {
+      const key = lastAsked();
+      if (!key) break;
+      const line = byKey[key];
+      if (!line) { toast("no scripted reply for " + key, true); break; }
+      await new Promise(function(r){ setTimeout(r, 700); });
+      await sendMessage(line);
+    }
+  }
+  state.playing = false;
+  $("btnPlay").disabled = false;
+});
+
+/* ---------- results ---------- */
+function ruleRow(p){
+  const row = el("div", "rulerow");
+  if (p.rules && p.rules.length) {
+    p.rules.forEach(function(u, i){
+      const a = el("a", null, p.rules.length > 1 ? "Rule " + (i + 1) : "Rule");
+      a.href = u; a.target = "_blank"; a.rel = "noopener";
+      row.appendChild(a);
+    });
+  } else if (p.agency_url) {
+    const a = el("a", null, "Agency");
+    a.href = p.agency_url; a.target = "_blank"; a.rel = "noopener";
+    row.appendChild(a);
+  } else {
+    row.appendChild(el("span", "masked", "no rule URL from the engine"));
+  }
+  return row;
+}
+function memberLine(p, er){
+  if (!p.eligible_members || !p.eligible_members.length) return null;
+  const names = p.eligible_members.map(function(i){
+    const m = er.members[i];
+    return m && m.age !== undefined ? "age " + m.age : "member " + (i + 1);
+  });
+  const total = er.members.length;
+  const prefix = names.length === total ? "Everyone in the household" : names.length + " of " + total;
+  return prefix + ": " + names.join(", ");
+}
+function progCard(p, er){
+  const card = el("div", "prog");
+  card.appendChild(el("h3", null, p.label));
+  if (p.not_modeled) {
+    card.appendChild(el("div", "state check", "not computed by the engine, screen with the agency"));
+    card.appendChild(el("p", "who", p.note));
+  } else if (p.amount !== null && p.amount !== undefined && p.eligible) {
+    const a = el("div", "amount");
+    a.appendChild(el("span", "fig", fmtMoney(p.amount)));
+    a.appendChild(el("span", "unit", unitWord(p.unit)));
+    card.appendChild(a);
+  } else if (p.eligible) {
+    card.appendChild(el("div", "state", "eligible"));
+  } else {
+    card.appendChild(el("div", "state no", "not eligible"));
+  }
+  if (p.note && !p.not_modeled) card.appendChild(el("p", "who", p.note));
+  const who = memberLine(p, er);
+  if (who) card.appendChild(el("p", "who", who));
+  card.appendChild(ruleRow(p));
+  if (p.key === "snap" && er.snap_detail && Object.keys(er.snap_detail).length) {
+    card.appendChild(snapDetail(er.snap_detail, p.amount, er.snap_detail_errors));
+  }
+  return card;
+}
+function snapDetail(d, allotment, errs){
+  const box = el("details", "disc");
+  box.appendChild(el("summary", null, "How SNAP got to this number"));
+  const t = el("table", "kv");
+  const rows = [
+    ["Gross monthly income", d.snap_gross_income],
+    ["Standard deduction", -d.snap_standard_deduction],
+    ["Earned income deduction (20%)", -d.snap_earned_income_deduction],
+    ["Excess shelter deduction", -d.snap_excess_shelter_expense_deduction],
+    ["Excess medical deduction", -d.snap_excess_medical_expense_deduction],
+    ["Standard utility allowance used", d.snap_utility_allowance],
+    ["Net monthly income", d.snap_net_income],
+    ["Maximum allotment for this household", d.snap_max_allotment],
+    ["Expected contribution (30% of net)", -d.snap_expected_contribution],
+    ["Monthly allotment", allotment]
+  ];
+  rows.forEach(function(r){
+    if (r[1] === null || r[1] === undefined) return;
+    const tr = el("tr");
+    if (r[0] === "Monthly allotment") tr.className = "total";
+    tr.appendChild(el("td", null, r[0]));
+    const v = r[1];
+    tr.appendChild(el("td", null, (v < 0 ? "-" : "") + "$" + fmtNum(Math.abs(v))));
+    t.appendChild(tr);
+  });
+  box.appendChild(t);
+  const tests = [];
+  if (d.meets_snap_gross_income_test !== undefined) tests.push("gross income test " + (d.meets_snap_gross_income_test ? "met" : "not met"));
+  if (d.meets_snap_net_income_test !== undefined) tests.push("net income test " + (d.meets_snap_net_income_test ? "met" : "not met"));
+  if (tests.length) box.appendChild(el("p", "who", tests.join(", ")));
+  if (errs && Object.keys(errs).length) {
+    Object.keys(errs).forEach(function(k){
+      box.appendChild(el("p", "who", "engine could not compute " + k + ": " + errs[k]));
+    });
+  }
+  return box;
+}
+function renderResults(){
+  const box = $("resultsBody");
+  box.textContent = "";
+  const c = state.caseRec;
+  if (!c || !c.engine_result) {
+    box.appendChild(el("div", "empty",
+      "Nothing computed yet. Finish a thread on the Chat tab and the engine runs on the last answer."));
+    return;
+  }
+  const er = c.engine_result;
+  if (c.explanation) {
+    const ex = renderRich(el("div", "explain"), c.explanation.message_to_family);
+    if (c.explanation.language === "ar") { ex.setAttribute("dir", "rtl"); ex.setAttribute("lang", "ar"); }
+    box.appendChild(ex);
+  }
+  const eligible = er.programs.filter(function(p){ return p.eligible || p.not_modeled; });
+  const rest = er.programs.filter(function(p){ return !p.eligible && !p.not_modeled; });
+  eligible.forEach(function(p){ box.appendChild(progCard(p, er)); });
+  if (rest.length) {
+    const d = el("details", "prog");
+    d.appendChild(el("summary", null, "Checked, not eligible (" + rest.length + ")"));
+    const ul = el("ul", "notelist");
+    rest.forEach(function(p){
+      const li = el("li");
+      li.appendChild(el("span", null, p.label));
+      if (p.rules && p.rules.length) {
+        const a = el("a", null, "Rule");
+        a.href = p.rules[0]; a.target = "_blank"; a.rel = "noopener";
+        a.style.fontFamily = "var(--font-mono)"; a.style.fontSize = "11.5px";
+        li.appendChild(a);
+      } else {
+        li.appendChild(el("span", "nm", "no rule URL from the engine"));
+      }
+      ul.appendChild(li);
+      if (p.note) {
+        const nl = el("li");
+        nl.appendChild(el("span", "nm", p.note));
+        nl.style.borderBottom = "0";
+        nl.style.paddingTop = "0";
+        ul.appendChild(nl);
+      }
+    });
+    d.appendChild(ul);
+    box.appendChild(d);
+  }
+  box.appendChild(el("p", "foot",
+    "Computed by " + er.engine + " " + er.engine_version + ", estimate, the agency decides."));
+}
+
+/* ---------- board ---------- */
+async function loadBoard(){
+  const r = await call({ action:"board" });
+  if (!r) return;
+  state.board = r.board || [];
+  renderBoard();
+}
+function programsSummary(c){
+  if (!c.engine_result) return "intake in progress";
+  const el2 = c.engine_result.programs.filter(function(p){ return p.eligible; });
+  const snap = el2.filter(function(p){ return p.key === "snap"; })[0];
+  const head = snap ? "SNAP " + fmtMoney(snap.amount) + "/mo" : "no SNAP";
+  return head + " · " + el2.length + " programs eligible";
+}
+function nextDeadline(c){
+  const ds = (c.filing_plans || []).map(function(p){ return p.deadline; }).filter(Boolean).sort();
+  return ds.length ? ds[0] : null;
+}
+function renderBoard(){
+  const box = $("boardBody");
+  box.textContent = "";
+  if (!state.board.length) {
+    box.appendChild(el("div", "empty", "No cases yet. Play a household on the Chat tab."));
+    $("boardDetail").textContent = "";
+    return;
+  }
+  state.board.forEach(function(c){
+    const b = el("button", "boardrow");
+    b.type = "button";
+    const top = el("div", "bt");
+    top.appendChild(el("span", "cid", c.case_id));
+    const pill = el("span", "pill " + c.status, c.status);
+    top.appendChild(pill);
+    b.appendChild(top);
+    const nameLine = el("div", "line");
+    const nm = c.facts.contact_name ? c.facts.contact_name.value : "unknown";
+    if (c.masked) nameLine.appendChild(el("span", "masked", nm));
+    else nameLine.appendChild(el("strong", null, nm));
+    nameLine.appendChild(el("span", null, "  " + programsSummary(c)));
+    b.appendChild(nameLine);
+    const dl = nextDeadline(c);
+    if (dl) b.appendChild(el("div", "due", "next deadline " + localDate(dl)));
+    b.appendChild(el("div", "cid", c.claimed_by ? "claimed by " + c.claimed_by : "unclaimed"));
+    b.addEventListener("click", function(){ state.openCase = c.case_id; renderBoardDetail(); });
+    box.appendChild(b);
+  });
+  renderBoardDetail();
+}
+function renderBoardDetail(){
+  const box = $("boardDetail");
+  box.textContent = "";
+  if (!state.openCase) return;
+  const c = state.board.filter(function(x){ return x.case_id === state.openCase; })[0];
+  if (!c) return;
+  const d = el("div", "detail");
+  d.appendChild(el("h3", null, (c.gallery_name || "Case") + "  ·  " + c.case_id));
+
+  d.appendChild(el("h4", null, "Contact"));
+  [["Name", c.facts.contact_name], ["Phone", c.facts.contact_phone], ["Address", c.facts.address]].forEach(function(p){
+    const row = el("div", "fieldrow");
+    row.appendChild(el("span", null, p[0]));
+    row.appendChild(el("span", c.masked ? "masked" : null, p[1] ? p[1].value : ""));
+    d.appendChild(row);
+  });
+  const claim = el("button", "btn", c.claimed_by ? "Claimed by " + c.claimed_by : "Claim");
+  claim.type = "button";
+  claim.disabled = !!c.claimed_by;
+  claim.style.marginTop = "10px";
+  claim.addEventListener("click", async function(){
+    const who = $("coordName").value.trim();
+    if (!who) { toast("type your name in the box above before claiming", true); $("coordName").focus(); return; }
+    const r = await call({ action:"claim", case_id: c.case_id, coordinator: who });
+    if (!r) return;
+    toast("claimed, identifiers unmasked");
+    await loadBoard();
+  });
+  d.appendChild(claim);
+
+  d.appendChild(el("h4", null, "Transcript"));
+  const mt = el("div", "mini-thread");
+  const g = G_BY_ID[c.gallery_case];
+  const secret = (!c.claimed_by && g && g.contact)
+    ? [g.contact.name, g.contact.phone, g.contact.address].filter(function(v){ return v && v.length > 3; })
+    : [];
+  c.transcript.forEach(function(m){
+    let mtext = m.text;
+    secret.forEach(function(v){ mtext = mtext.split(v).join("••••"); });
+    const p = el("p");
+    p.appendChild(el("span", "r", m.role + " " + m.id + " · "));
+    p.appendChild(el("span", null, mtext));
+    if (m.role === "family" && c.facts.language === "ar") { p.setAttribute("dir", "rtl"); p.setAttribute("lang", "ar"); }
+    mt.appendChild(p);
+  });
+  d.appendChild(mt);
+
+  if (c.engine_result) {
+    d.appendChild(el("h4", null, "Engine result"));
+    c.engine_result.programs.filter(function(p){ return p.eligible; }).forEach(function(p){
+      const row = el("div", "fieldrow");
+      row.appendChild(el("span", null, p.label));
+      row.appendChild(el("span", null, p.amount === null || p.amount === undefined
+        ? "eligible" : fmtMoney(p.amount) + " " + unitWord(p.unit)));
+      d.appendChild(row);
+    });
+  }
+
+  if (c.filing_plans && c.filing_plans.length) {
+    d.appendChild(el("h4", null, "Filing plans"));
+    c.filing_plans.forEach(function(p){
+      const wrap = el("details", "disc");
+      wrap.appendChild(el("summary", null, p.program.toUpperCase() + " · " + p.form_name));
+      p.fields.forEach(function(f){
+        const row = el("div", "fieldrow");
+        row.appendChild(el("span", null, f.form_field));
+        const right = el("span");
+        right.appendChild(el("span", null, f.value + " "));
+        right.appendChild(el("span", "cite", citeLabel(f.source_msg_id)));
+        row.appendChild(right);
+        wrap.appendChild(row);
+      });
+      const docs = el("div", "fieldrow");
+      docs.appendChild(el("span", null, "Documents needed"));
+      docs.appendChild(el("span", null, p.documents_needed.join(", ")));
+      wrap.appendChild(docs);
+      const dl = el("div", "fieldrow");
+      dl.appendChild(el("span", null, "Deadline"));
+      dl.appendChild(el("span", null, localDate(p.deadline)));
+      wrap.appendChild(dl);
+      wrap.appendChild(el("p", "who", p.deadline_rule + " Submit: " + p.submit_route));
+      const a = el("a", null, "Form PDF");
+      a.href = p.form_url; a.target = "_blank"; a.rel = "noopener";
+      wrap.appendChild(a);
+      d.appendChild(wrap);
+    });
+  }
+
+  if (c.risk) {
+    d.appendChild(el("h4", null, "Risk report"));
+    d.appendChild(el("div", "fieldrow")).appendChild(el("span", null,
+      c.risk.escalate ? "Escalated to a coordinator" : "No escalation"));
+    c.risk.reasons.forEach(function(r){ d.appendChild(el("p", "who", r)); });
+    if (c.risk.question_for_coordinator) d.appendChild(el("p", "who", "Question: " + c.risk.question_for_coordinator));
+  }
+  box.appendChild(d);
+}
+
+/* ---------- decision cards ---------- */
+function renderCards(){
+  const box = $("cardsBody");
+  box.textContent = "";
+  const all = [];
+  (state.caseRec ? [state.caseRec] : []).concat(state.board).forEach(function(c){
+    (c.cards || []).forEach(function(k){
+      if (!all.some(function(x){ return x.card.card_id === k.card_id; })) all.push({ card:k, case_id:c.case_id });
+    });
+  });
+  $("cardCount").hidden = !all.filter(function(x){ return !x.card.answered; }).length;
+  $("cardCount").textContent = all.filter(function(x){ return !x.card.answered; }).length;
+  if (!all.length) {
+    box.appendChild(el("div", "empty", "No cards. A card appears only when the agent will not decide on its own."));
+    return;
+  }
+  all.forEach(function(entry){
+    const k = entry.card;
+    const card = el("div", "card");
+    k.situation.split("\n").forEach(function(line){ card.appendChild(el("p", "sit", line)); });
+    const ruleBox = el("label", "switch");
+    const cb = el("input");
+    cb.type = "checkbox";
+    cb.checked = !!k.make_standing_rule;
+    cb.disabled = !!k.answered;
+    ruleBox.appendChild(cb);
+    ruleBox.appendChild(el("span", null, "Make this a standing rule for cases like it"));
+
+    k.options.forEach(function(o){
+      const b = el("button", "opt" + (o.label === k["default"] ? " default" : ""));
+      b.type = "button";
+      const line = el("div", "ol");
+      line.appendChild(el("span", null, o.label));
+      if (o.label === k["default"]) line.appendChild(el("span", "tag", "default"));
+      b.appendChild(line);
+      b.appendChild(el("span", "oc", o.consequence));
+      b.disabled = !!k.answered;
+      b.addEventListener("click", async function(){
+        const r = await call({ action:"answer_card", case_id: entry.case_id, card_id: k.card_id,
+          option: o.label, make_standing_rule: cb.checked });
+        if (!r) return;
+        if (state.caseRec && state.caseRec.case_id === entry.case_id) state.caseRec = r.case;
+        toast("answered: " + o.label);
+        await loadBoard();
+        renderAll();
+      });
+      card.appendChild(b);
+    });
+
+    if (k.deadline) card.appendChild(el("p", "who", "Answer by " + localDate(k.deadline)));
+    const chips = el("div", "chips");
+    k.evidence.forEach(function(e){ chips.appendChild(el("span", "chip", /^m\d+$/.test(e) ? citeLabel(e) : e)); });
+    card.appendChild(chips);
+    card.appendChild(ruleBox);
+    if (k.answered) {
+      card.appendChild(el("div", "answered", "Answered: " + k.answered +
+        (k.make_standing_rule ? " · saved as a standing rule" : "")));
+    }
+    box.appendChild(card);
+  });
+}
+
+/* ---------- ledger ---------- */
+let ledgerTimer = null;
+function renderLedger(){
+  const box = $("ledgerBody");
+  box.textContent = "";
+  const rows = [];
+  (state.caseRec ? [state.caseRec] : []).concat(state.board).forEach(function(c){
+    (c.ledger || []).forEach(function(e){
+      if (!rows.some(function(x){ return x.e.entry_id === e.entry_id; })) rows.push({ e:e, case_id:c.case_id });
+    });
+  });
+  rows.sort(function(a, b){ return a.e.at < b.e.at ? 1 : -1; });
+  if (!rows.length) {
+    box.appendChild(el("div", "empty", "Empty. Every action the agent takes lands here with its reason."));
+    return;
+  }
+  let live = false;
+  rows.forEach(function(r){
+    const e = r.e;
+    const row = el("div", "led" + (e.denied ? " denied" : "") + (e.undone ? " undone" : ""));
+    const act = el("div", "act");
+    act.appendChild(el("span", null, e.action));
+    if (e.denied) act.appendChild(el("span", "tag-guard", "guard"));
+    row.appendChild(act);
+    row.appendChild(el("div", "why", e.why));
+    const when = el("div", "when");
+    when.appendChild(el("span", null, localStamp(e.at)));
+    when.appendChild(el("span", null, "tier " + (e.tier === null || e.tier === undefined ? "-" : e.tier)));
+    if (e.undone) when.appendChild(el("span", null, "undone"));
+    row.appendChild(when);
+    const left = e.final_at ? new Date(e.final_at).getTime() - Date.now() : -1;
+    if (!e.undone && !e.denied && left > 0) {
+      live = true;
+      const bar = el("div", "undobar");
+      const b = el("button", "btn warn", "Undo");
+      b.type = "button";
+      b.addEventListener("click", async function(){
+        const res = await call({ action:"undo", case_id: r.case_id, entry_id: e.entry_id });
+        if (!res) return;
+        if (state.caseRec && state.caseRec.case_id === r.case_id) state.caseRec = res.case;
+        toast("undone");
+        await loadBoard();
+        renderAll();
+      });
+      bar.appendChild(b);
+      const mm = Math.floor(left / 60000), ss = Math.floor((left % 60000) / 1000);
+      bar.appendChild(el("span", "cd", mm + ":" + String(ss).padStart(2, "0") + " left to take it back"));
+      if (e.undo) bar.appendChild(el("span", "why", e.undo));
+      row.appendChild(bar);
+    }
+    box.appendChild(row);
+  });
+  clearTimeout(ledgerTimer);
+  if (live) ledgerTimer = setTimeout(renderLedger, 1000);
+}
+
+/* ---------- orchestrated first paint ---------- */
+function renderAll(){
+  renderTier();
+  renderThread();
+  renderResults();
+  renderCards();
+  renderLedger();
+}
+
+async function boot(){
+  if (MOCK) $("mockBadge").hidden = false;
+  // gallery/scripts.json is fetched when the page is served over http(s);
+  // from file:// the fetch is blocked, so the embedded scripts are used instead.
+  if (location.protocol === "http:" || location.protocol === "https:") {
+    try {
+      const res = await fetch("../gallery/scripts.json", { cache:"no-store" });
+      if (res.ok) state.scripts = await res.json();
+    } catch (e) { state.scripts = null; }
+  }
+
+  const g = await call({ action:"gallery" });
+  const list = (g && g.gallery) || GALLERY.map(function(x){
+    return { id:x.id, name:x.name, description:x.desc, languages:x.langs };
+  });
+  renderGallery(list);
+  await loadBoard();
+  renderAll();
+
+  const items = document.querySelectorAll(".picker, .thread, .composer, #chatHint");
+  items.forEach(function(n, i){
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    n.animate([{ opacity:0, transform:"translateY(8px)" }, { opacity:1, transform:"none" }],
+      { duration:340, delay:i * 70, easing:"cubic-bezier(.22,.7,.3,1)", fill:"backwards" });
+  });
+}
+boot();
+</script>
+</body>
+</html>

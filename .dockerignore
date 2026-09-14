@@ -1,0 +1,21 @@
+# `--code-location ..` makes the whole repo root the build context, and CodeBuild uploads
+# that context to S3. Without this file .env (AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY)
+# leaves the machine and can land in an image layer. The project rule is that .env is never
+# committed and never printed; a build context is the same bar.
+.env
+.env.*
+!.env.example
+.git
+.gitignore
+_data
+_runs
+archive
+evals
+submission
+web
+benefitlineruntime
+deploy
+**/__pycache__
+**/*.pyc
+.pytest_cache
+*.log

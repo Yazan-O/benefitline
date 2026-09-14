@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" width="1000" height="660" role="img" aria-label="Benefitline request path">
+<title>Benefitline request path</title>
+<defs>
+<marker id="rp-arrow" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0, 9 3.5, 0 7" fill="#59685F"/></marker>
+<marker id="rp-arrow-accent" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0, 9 3.5, 0 7" fill="#14624A"/></marker>
+</defs>
+<rect width="1000" height="660" fill="#E9EDEA"/>
+<text x="40" y="48" fill="#14624A" font-size="13" font-family="Consolas,'Courier New',monospace" letter-spacing="0.18em">BENEFITLINE / REQUEST PATH</text>
+<text x="40" y="88" fill="#16211C" font-size="30" font-weight="600" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">One public address, no keys on the phone</text>
+<text x="40" y="118" fill="#59685F" font-size="17" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">A judge opens one link. Everything behind it is private and in us-east-1.</text>
+
+<path d="M 280,232 H 340" fill="none" stroke="#59685F" stroke-width="1.4" marker-end="url(#rp-arrow)"/>
+<path d="M 650,232 H 710" fill="none" stroke="#59685F" stroke-width="1.4" marker-end="url(#rp-arrow)"/>
+<path d="M 835,294 V 390" fill="none" stroke="#59685F" stroke-width="1.4" marker-end="url(#rp-arrow)"/>
+<path d="M 740,294 V 336 Q 740,344 732,344 H 503 Q 495,344 495,352 V 390" fill="none" stroke="#14624A" stroke-width="1.4" marker-end="url(#rp-arrow-accent)"/>
+
+<rect x="280" y="203" width="60" height="20" rx="6" fill="#E9EDEA"/>
+<text x="310" y="218" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">HTTPS</text>
+<rect x="650" y="203" width="60" height="20" rx="6" fill="#E9EDEA"/>
+<text x="680" y="218" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">SIGV4</text>
+<rect x="845" y="330" width="102" height="20" rx="6" fill="#E9EDEA"/>
+<text x="851" y="345" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" letter-spacing="0.08em">MODEL CALL</text>
+<rect x="505" y="334" width="136" height="20" rx="6" fill="#E9EDEA"/>
+<text x="511" y="349" fill="#14624A" font-size="13" font-family="Consolas,'Courier New',monospace" letter-spacing="0.08em">CASES + LEDGER</text>
+
+<rect x="40" y="170" width="240" height="124" rx="6" fill="#FCFDFC" stroke="#CFD9D2" stroke-width="1.4"/>
+<rect x="56" y="184" width="67" height="20" rx="6" fill="none" stroke="#59685F" stroke-width="1"/>
+<text x="89" y="199" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">CLIENT</text>
+<text x="56" y="232" fill="#16211C" font-size="22" font-weight="600" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">Family phone</text>
+<text x="56" y="256" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">one link, one QR code</text>
+<text x="56" y="280" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">no app, no upload</text>
+
+<rect x="340" y="170" width="310" height="124" rx="6" fill="#DCE8E1" stroke="#14624A" stroke-width="1.4"/>
+<rect x="356" y="184" width="127" height="20" rx="6" fill="none" stroke="#14624A" stroke-width="1"/>
+<text x="419" y="199" fill="#14624A" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">NO MODEL CALL</text>
+<text x="356" y="232" fill="#16211C" font-size="22" font-weight="600" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">Lambda Function URL</text>
+<text x="356" y="256" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">serves web/index.html on GET</text>
+<text x="356" y="280" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">signs InvokeAgentRuntime on POST</text>
+
+<rect x="710" y="170" width="250" height="124" rx="6" fill="#FCFDFC" stroke="#CFD9D2" stroke-width="1.4"/>
+<rect x="726" y="184" width="76" height="20" rx="6" fill="none" stroke="#59685F" stroke-width="1"/>
+<text x="764" y="199" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">RUNTIME</text>
+<text x="726" y="232" fill="#16211C" font-size="22" font-weight="600" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">AgentCore Runtime</text>
+<text x="726" y="256" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">eight actions, one</text>
+<text x="726" y="280" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">entrypoint, private network</text>
+
+<rect x="340" y="390" width="310" height="124" rx="6" fill="#DCE8E1" stroke="#14624A" stroke-width="1.4"/>
+<rect x="356" y="404" width="127" height="20" rx="6" fill="none" stroke="#14624A" stroke-width="1"/>
+<text x="419" y="419" fill="#14624A" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">NO MODEL CALL</text>
+<text x="356" y="452" fill="#16211C" font-size="22" font-weight="600" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">DynamoDB</text>
+<text x="356" y="476" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">table benefitline-cases</text>
+<text x="356" y="500" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">cases, ledger rows, org rules</text>
+
+<rect x="710" y="390" width="250" height="124" rx="6" fill="#FCFDFC" stroke="#CFD9D2" stroke-width="1.4"/>
+<rect x="726" y="404" width="76" height="20" rx="6" fill="none" stroke="#59685F" stroke-width="1"/>
+<text x="764" y="419" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">BEDROCK</text>
+<text x="726" y="452" fill="#16211C" font-size="22" font-weight="600" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">Bedrock models</text>
+<text x="726" y="476" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">Sonnet 4.6 primary</text>
+<text x="726" y="500" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">Haiku 4.5 fallback</text>
+
+<line x1="40" y1="562" x2="960" y2="562" stroke="#CFD9D2" stroke-width="1"/>
+<text x="40" y="592" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" letter-spacing="0.14em">LEGEND</text>
+<rect x="140" y="578" width="20" height="20" rx="6" fill="#DCE8E1" stroke="#14624A" stroke-width="1.4"/>
+<text x="170" y="593" fill="#59685F" font-size="15" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">no model call: deterministic code</text>
+<rect x="470" y="578" width="20" height="20" rx="6" fill="#FCFDFC" stroke="#CFD9D2" stroke-width="1.4"/>
+<text x="500" y="593" fill="#59685F" font-size="15" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">model call: Haiku or Sonnet on Bedrock</text>
+<text x="40" y="634" fill="#59685F" font-size="14" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">The phone never holds an AWS key. The Lambda Function URL is the only public address; the runtime, the models and the table are private.</text>
+</svg>

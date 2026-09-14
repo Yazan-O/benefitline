@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1140" width="1600" height="1140" role="img" aria-label="Benefitline architecture">
+<title>Benefitline architecture</title>
+<defs>
+<marker id="arrow" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0, 9 3.5, 0 7" fill="#59685F"/></marker>
+<marker id="arrow-accent" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0, 9 3.5, 0 7" fill="#14624A"/></marker>
+<marker id="arrow-signal" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0, 9 3.5, 0 7" fill="#A8452B"/></marker>
+</defs>
+<rect width="1600" height="1140" fill="#E9EDEA"/>
+<text x="48" y="52" fill="#14624A" font-size="13" font-family="Consolas,'Courier New',monospace" letter-spacing="0.18em">BENEFITLINE / ARCHITECTURE</text>
+<text x="48" y="94" fill="#16211C" font-size="34" font-weight="600" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">The model asks, the rules engine decides</text>
+<text x="48" y="124" fill="#59685F" font-size="17" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">One AgentCore runtime in us-east-1. Every amount comes from policyengine-us 2.0.4, never from a language model.</text>
+<rect x="48" y="324" width="1096" height="660" rx="6" fill="rgba(20,98,74,0.03)" stroke="#CFD9D2" stroke-width="1"/>
+<rect x="852" y="316" width="276" height="18" rx="2" fill="#E9EDEA"/>
+<text x="990" y="330" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.14em">AGENTCORE RUNTIME, US-EAST-1</text>
+<path d="M 272,214 H 320" fill="none" stroke="#59685F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M 624,214 H 704" fill="none" stroke="#59685F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M 872,276 V 302 Q 872,310 864,310 H 236 Q 228,310 228,318 V 344" fill="none" stroke="#59685F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M 228,468 V 524" fill="none" stroke="#59685F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M 228,648 V 704" fill="none" stroke="#59685F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M 368,734 H 388 Q 396,734 396,726 V 404 Q 396,396 404,396 H 456" fill="none" stroke="#A8452B" stroke-width="1.4" marker-end="url(#arrow-signal)"/>
+<path d="M 368,766 H 408 Q 416,766 416,758 V 548 Q 416,540 424,540 H 456" fill="none" stroke="#A8452B" stroke-width="1.4" marker-end="url(#arrow-signal)"/>
+<path d="M 368,798 H 428 Q 436,798 436,790 V 692 Q 436,684 444,684 H 456" fill="none" stroke="#A8452B" stroke-width="1.4" marker-end="url(#arrow-signal)"/>
+<path d="M 704,396 H 716 Q 724,396 724,404 V 508 Q 724,516 732,516 H 792" fill="none" stroke="#59685F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M 704,540 H 792" fill="none" stroke="#59685F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M 704,684 H 736 Q 744,684 744,676 V 572 Q 744,564 752,564 H 792" fill="none" stroke="#59685F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M 1072,516 H 1128 Q 1136,516 1136,508 V 414 Q 1136,406 1144,406 H 1200" fill="none" stroke="#A8452B" stroke-width="1.4" marker-end="url(#arrow-signal)"/>
+<path d="M 1072,560 H 1200" fill="none" stroke="#14624A" stroke-width="1.4" marker-end="url(#arrow-accent)"/>
+<path d="M 1376,612 V 652" fill="none" stroke="#14624A" stroke-width="1.4" marker-end="url(#arrow-accent)"/>
+<path d="M 1376,756 V 800" fill="none" stroke="#59685F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M 1072,906 H 1200" fill="none" stroke="#59685F" stroke-width="1.2" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+<rect x="636" y="185" width="55" height="20" rx="6" fill="#E9EDEA"/>
+<text x="664" y="200" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">SIGV4</text>
+<rect x="483" y="281" width="153" height="20" rx="6" fill="#E9EDEA"/>
+<text x="560" y="296" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">POST /INVOCATIONS</text>
+<rect x="238" y="486" width="104" height="20" rx="6" fill="#E9EDEA"/>
+<text x="244" y="502" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" letter-spacing="0.08em">ROUTED TURN</text>
+<rect x="238" y="666" width="136" height="20" rx="6" fill="#E9EDEA"/>
+<text x="244" y="682" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" letter-spacing="0.08em">VALIDATED FACTS</text>
+<rect x="388" y="361" width="71" height="20" rx="6" fill="#E9EDEA"/>
+<text x="424" y="376" fill="#A8452B" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">AMOUNTS</text>
+<rect x="1076" y="530" width="120" height="20" rx="6" fill="#E9EDEA"/>
+<text x="1136" y="545" fill="#14624A" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">FILE + LEDGER</text>
+<rect x="1386" y="622" width="63" height="20" rx="6" fill="#E9EDEA"/>
+<text x="1392" y="638" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" letter-spacing="0.08em">APPEND</text>
+<rect x="1386" y="768" width="63" height="20" rx="6" fill="#E9EDEA"/>
+<text x="1392" y="784" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" letter-spacing="0.08em">LIST()</text>
+<rect x="1104" y="871" width="63" height="20" rx="6" fill="#E9EDEA"/>
+<text x="1136" y="886" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">MASKED</text>
+<text x="456" y="338" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" letter-spacing="0.14em">STRANDS GRAPH, THREE NODES IN PARALLEL</text>
+<text x="1200" y="336" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" letter-spacing="0.14em">OUTPUTS AND STATE</text>
+<rect x="48" y="152" width="224" height="124" rx="6" fill="#E9EDEA"/>
+<rect x="48" y="152" width="224" height="124" rx="6" fill="#FCFDFC" stroke="#CFD9D2" stroke-width="1.4"/>
+<rect x="64" y="166" width="67" height="20" rx="6" fill="none" stroke="#59685F" stroke-width="1"/>
+<text x="97" y="181" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">CLIENT</text>
+<text x="64" y="214" fill="#16211C" font-size="22" font-weight="600" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">Family phone</text>
+<text x="64" y="238" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">web page over cellular</text>
+<text x="64" y="262" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">Language detected in code</text>
+<rect x="320" y="152" width="304" height="124" rx="6" fill="#E9EDEA"/>
+<rect x="320" y="152" width="304" height="124" rx="6" fill="#DCE8E1" stroke="#14624A" stroke-width="1.4"/>
+<rect x="336" y="166" width="127" height="20" rx="6" fill="none" stroke="#14624A" stroke-width="1"/>
+<text x="399" y="181" fill="#14624A" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">NO MODEL CALL</text>
+<text x="336" y="214" fill="#16211C" font-size="22" font-weight="600" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">Lambda Function URL</text>
+<text x="336" y="238" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">serves web/index.html + gallery</text>
+<text x="336" y="262" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">SigV4 InvokeAgentRuntime, no keys</text>
+<rect x="704" y="152" width="336" height="124" rx="6" fill="#E9EDEA"/>
+<rect x="704" y="152" width="336" height="124" rx="6" fill="#FCFDFC" stroke="#CFD9D2" stroke-width="1.4"/>
+<rect x="720" y="166" width="76" height="20" rx="6" fill="none" stroke="#59685F" stroke-width="1"/>
+<text x="758" y="181" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">RUNTIME</text>
+<text x="720" y="214" fill="#16211C" font-size="22" font-weight="600" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">AgentCore Runtime</text>
+<text x="720" y="238" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">one BedrockAgentCoreApp entrypoint</text>
+<text x="720" y="262" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">POST /invocations, GET /ping</text>
+<rect x="88" y="344" width="280" height="124" rx="6" fill="#E9EDEA"/>
+<rect x="88" y="344" width="280" height="124" rx="6" fill="#FCFDFC" stroke="#CFD9D2" stroke-width="1.4"/>
+<rect x="104" y="358" width="67" height="20" rx="6" fill="none" stroke="#59685F" stroke-width="1"/>
+<text x="137" y="373" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">ROUTER</text>
+<text x="104" y="406" fill="#16211C" font-size="22" font-weight="600" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">Tier router</text>
+<text x="104" y="430" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">tier 0 no model, tier 1 Haiku</text>
+<text x="104" y="454" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">tier 2 Sonnet, counter on screen</text>
+<rect x="88" y="524" width="280" height="124" rx="6" fill="#E9EDEA"/>
+<rect x="88" y="524" width="280" height="124" rx="6" fill="#FCFDFC" stroke="#CFD9D2" stroke-width="1.4"/>
+<rect x="104" y="538" width="76" height="20" rx="6" fill="none" stroke="#59685F" stroke-width="1"/>
+<text x="142" y="553" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">BEDROCK</text>
+<text x="104" y="586" fill="#16211C" font-size="22" font-weight="600" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">Intake agent</text>
+<text x="104" y="610" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">structured output IntakeTurn</text>
+<text x="104" y="634" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">validate_facts() before storing</text>
+<rect x="88" y="704" width="280" height="124" rx="6" fill="#E9EDEA"/>
+<rect x="88" y="704" width="280" height="124" rx="6" fill="#F3E2DC" stroke="#A8452B" stroke-width="1.4"/>
+<rect x="104" y="718" width="127" height="20" rx="6" fill="none" stroke="#A8452B" stroke-width="1"/>
+<text x="167" y="733" fill="#A8452B" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">NO MODEL CALL</text>
+<text x="104" y="766" fill="#16211C" font-size="22" font-weight="600" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">policyengine-us 2.0.4</text>
+<text x="104" y="790" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">deterministic, AGPL, separate library</text>
+<text x="104" y="814" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">each amount carries its rule URL</text>
+<rect x="456" y="344" width="248" height="104" rx="6" fill="#E9EDEA"/>
+<rect x="456" y="344" width="248" height="104" rx="6" fill="#FCFDFC" stroke="#CFD9D2" stroke-width="1.4"/>
+<rect x="472" y="358" width="67" height="20" rx="6" fill="none" stroke="#59685F" stroke-width="1"/>
+<text x="505" y="373" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">SONNET</text>
+<text x="472" y="406" fill="#16211C" font-size="22" font-weight="600" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">Explainer</text>
+<text x="472" y="430" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">in the family's language</text>
+<rect x="456" y="488" width="248" height="104" rx="6" fill="#E9EDEA"/>
+<rect x="456" y="488" width="248" height="104" rx="6" fill="#FCFDFC" stroke="#CFD9D2" stroke-width="1.4"/>
+<rect x="472" y="502" width="67" height="20" rx="6" fill="none" stroke="#59685F" stroke-width="1"/>
+<text x="505" y="517" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">SONNET</text>
+<text x="472" y="550" fill="#16211C" font-size="22" font-weight="600" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">Filing</text>
+<text x="472" y="574" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">form fields, documents, dates</text>
+<rect x="456" y="632" width="248" height="104" rx="6" fill="#E9EDEA"/>
+<rect x="456" y="632" width="248" height="104" rx="6" fill="#FCFDFC" stroke="#CFD9D2" stroke-width="1.4"/>
+<rect x="472" y="646" width="59" height="20" rx="6" fill="none" stroke="#59685F" stroke-width="1"/>
+<text x="501" y="661" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">HAIKU</text>
+<text x="472" y="694" fill="#16211C" font-size="22" font-weight="600" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">Risk</text>
+<text x="472" y="718" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">escalates, never decides</text>
+<rect x="792" y="478" width="280" height="124" rx="6" fill="#E9EDEA"/>
+<rect x="792" y="478" width="280" height="124" rx="6" fill="#DCE8E1" stroke="#14624A" stroke-width="1.4"/>
+<rect x="808" y="492" width="127" height="20" rx="6" fill="none" stroke="#14624A" stroke-width="1"/>
+<text x="871" y="507" fill="#14624A" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">NO MODEL CALL</text>
+<text x="808" y="540" fill="#16211C" font-size="22" font-weight="600" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">Judgment node</text>
+<text x="808" y="564" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">deterministic MultiAgentBase</text>
+<text x="808" y="588" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">AND condition on all three edges</text>
+<rect x="1200" y="344" width="352" height="124" rx="6" fill="#E9EDEA"/>
+<rect x="1200" y="344" width="352" height="124" rx="6" fill="#F3E2DC" stroke="#A8452B" stroke-width="1.4"/>
+<rect x="1216" y="358" width="93" height="20" rx="6" fill="none" stroke="#A8452B" stroke-width="1"/>
+<text x="1262" y="373" fill="#A8452B" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">INTERRUPT</text>
+<text x="1216" y="406" fill="#16211C" font-size="22" font-weight="600" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">Decision Card</text>
+<text x="1216" y="430" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">the only interrupt, one tap answers</text>
+<text x="1216" y="454" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">a repeat answer becomes an org rule</text>
+<rect x="1200" y="508" width="352" height="104" rx="6" fill="#E9EDEA"/>
+<rect x="1200" y="508" width="352" height="104" rx="6" fill="#DCE8E1" stroke="#14624A" stroke-width="1.4"/>
+<rect x="1216" y="522" width="127" height="20" rx="6" fill="none" stroke="#14624A" stroke-width="1"/>
+<text x="1279" y="537" fill="#14624A" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">NO MODEL CALL</text>
+<text x="1216" y="570" fill="#16211C" font-size="22" font-weight="600" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">Ledger with undo</text>
+<text x="1216" y="594" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">silent filings, 10 minute veto window</text>
+<rect x="1200" y="652" width="352" height="104" rx="6" fill="#E9EDEA"/>
+<rect x="1200" y="652" width="352" height="104" rx="6" fill="#FCFDFC" stroke="#CFD9D2" stroke-width="1.4"/>
+<rect x="1216" y="666" width="59" height="20" rx="6" fill="none" stroke="#59685F" stroke-width="1"/>
+<text x="1245" y="681" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">STORE</text>
+<text x="1216" y="714" fill="#16211C" font-size="22" font-weight="600" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">DynamoDB benefitline-cases</text>
+<text x="1216" y="738" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">cases, ledger rows, org rules</text>
+<rect x="1200" y="800" width="352" height="124" rx="6" fill="#E9EDEA"/>
+<rect x="1200" y="800" width="352" height="124" rx="6" fill="#DCE8E1" stroke="#14624A" stroke-width="1.4"/>
+<rect x="1216" y="814" width="127" height="20" rx="6" fill="none" stroke="#14624A" stroke-width="1"/>
+<text x="1279" y="829" fill="#14624A" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">NO MODEL CALL</text>
+<text x="1216" y="862" fill="#16211C" font-size="22" font-weight="600" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">Coordinator board</text>
+<text x="1216" y="886" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">one row per family, what is filed</text>
+<text x="1216" y="910" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">identifiers masked until Claim</text>
+<rect x="88" y="856" width="984" height="100" rx="6" fill="#E9EDEA"/>
+<rect x="88" y="856" width="984" height="100" rx="6" fill="#DCE8E1" stroke="#14624A" stroke-width="1.4"/>
+<rect x="104" y="870" width="127" height="20" rx="6" fill="none" stroke="#14624A" stroke-width="1"/>
+<text x="167" y="885" fill="#14624A" font-size="13" font-family="Consolas,'Courier New',monospace" text-anchor="middle" letter-spacing="0.08em">NO MODEL CALL</text>
+<text x="104" y="918" fill="#16211C" font-size="22" font-weight="600" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">Guard hooks, enforced in code and not in prompts</text>
+<text x="104" y="942" fill="#59685F" font-size="16" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">MaskUntilClaimed  /  NoIdentifiersOut denies SSN and A-number  /  TraceRedactor  /  LedgerWriter</text>
+<line x1="48" y1="1028" x2="1552" y2="1028" stroke="#CFD9D2" stroke-width="1"/>
+<text x="48" y="1058" fill="#59685F" font-size="13" font-family="Consolas,'Courier New',monospace" letter-spacing="0.14em">LEGEND</text>
+<rect x="160" y="1044" width="20" height="20" rx="6" fill="#DCE8E1" stroke="#14624A" stroke-width="1.4"/>
+<text x="190" y="1059" fill="#59685F" font-size="15" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">no model call: deterministic code</text>
+<rect x="520" y="1044" width="20" height="20" rx="6" fill="#FCFDFC" stroke="#CFD9D2" stroke-width="1.4"/>
+<text x="550" y="1059" fill="#59685F" font-size="15" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">model call: Haiku or Sonnet on Bedrock</text>
+<rect x="912" y="1044" width="20" height="20" rx="6" fill="#F3E2DC" stroke="#A8452B" stroke-width="1.4"/>
+<text x="942" y="1059" fill="#59685F" font-size="15" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">the decider and the one interrupt</text>
+<line x1="1244" y1="1054" x2="1284" y2="1054" stroke="#59685F" stroke-width="1.2" stroke-dasharray="5,4"/>
+<text x="1294" y="1059" fill="#59685F" font-size="15" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">masked read</text>
+<text x="48" y="1100" fill="#59685F" font-size="14" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">Demo households are fictional. Amounts are estimates and the agency decides. Every number on screen carries the rule URL the engine used.</text>
+</svg>

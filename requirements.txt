@@ -1,0 +1,10 @@
+# The deployed AgentCore runtime. Pinned to what this build was verified against
+# (`python -m pip list`, 2026-09-13); policyengine-us is the eligibility engine and
+# its version is printed beside every number, so it is never floated.
+strands-agents==1.55.1
+strands-agents-tools==0.8.8
+bedrock-agentcore==1.23.0
+policyengine-us==2.0.4
+pydantic==2.11.7
+boto3==1.43.93
+python-dotenv==1.1.1

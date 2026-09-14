@@ -1,0 +1,303 @@
+{
+  "_note": "Scripted family replies for the gallery bench. Every household is fictional and is labeled so on screen. Each reply is tagged with the fact key it carries, so the bench can answer whatever the agent actually asks. Every script is English; the free-form `open` mode (run_intake.py --free) uses the same households. Amounts reproduce gallery/cases.py exactly: monthly = annual / 12.",
+  "cases": {
+    "case1_single_mother_two_kids": {
+      "opening": {
+        "en": "hi, i need help with food for me and my two kids. we live in tulsa."
+      },
+      "replies": [
+        {
+          "asks": "state",
+          "en": "Oklahoma"
+        },
+        {
+          "asks": "household_size",
+          "en": "3, me and my two kids"
+        },
+        {
+          "asks": "ages",
+          "en": "I'm 29, and they're 7 and 4"
+        },
+        {
+          "asks": "income",
+          "en": "I make 14 an hour, 30 hours a week"
+        },
+        {
+          "asks": "weekly_hours",
+          "en": "30 hours a week"
+        },
+        {
+          "asks": "rent",
+          "en": "rent is 950"
+        },
+        {
+          "asks": "utilities",
+          "en": "lights and gas about 180"
+        },
+        {
+          "asks": "pregnancy",
+          "en": "no, nobody"
+        },
+        {
+          "asks": "medical_expenses",
+          "en": "no, nothing like that"
+        },
+        {
+          "asks": "health_premiums",
+          "en": "nothing"
+        },
+        {
+          "asks": "immigration",
+          "en": "yes, we are all citizens"
+        }
+      ]
+    },
+    "case2_couple_newborn": {
+      "opening": {
+        "en": "hi, it's me, my wife, and our baby boy. we live in tulsa and we need help with food and formula."
+      },
+      "replies": [
+        {
+          "asks": "state",
+          "en": "Oklahoma"
+        },
+        {
+          "asks": "household_size",
+          "en": "3 of us"
+        },
+        {
+          "asks": "ages",
+          "en": "I'm 31, my wife is 28, and the baby is 2 months old"
+        },
+        {
+          "asks": "income",
+          "en": "I make 32,000 a year"
+        },
+        {
+          "asks": "weekly_hours",
+          "en": "40 hours a week"
+        },
+        {
+          "asks": "rent",
+          "en": "rent is 1050"
+        },
+        {
+          "asks": "utilities",
+          "en": "electric and gas run about 200"
+        },
+        {
+          "asks": "pregnancy",
+          "en": "yes, my wife is breastfeeding the baby"
+        },
+        {
+          "asks": "medical_expenses",
+          "en": "no, nothing like that"
+        },
+        {
+          "asks": "health_premiums",
+          "en": "nothing"
+        },
+        {
+          "asks": "immigration",
+          "en": "yes, we're all US citizens"
+        }
+      ]
+    },
+    "case3_senior_alone": {
+      "opening": {
+        "en": "hi, i'm 71 and i live by myself here in tulsa. my social security doesn't stretch far anymore."
+      },
+      "replies": [
+        {
+          "asks": "state",
+          "en": "Oklahoma"
+        },
+        {
+          "asks": "household_size",
+          "en": "just me, 1"
+        },
+        {
+          "asks": "ages",
+          "en": "I'm 71"
+        },
+        {
+          "asks": "income",
+          "en": "I get 1250 a month from social security"
+        },
+        {
+          "asks": "weekly_hours",
+          "en": "I don't work, I'm retired"
+        },
+        {
+          "asks": "rent",
+          "en": "rent is 650"
+        },
+        {
+          "asks": "utilities",
+          "en": "about 140 for lights and gas"
+        },
+        {
+          "asks": "medical_expenses",
+          "en": "no, nothing much"
+        },
+        {
+          "asks": "health_premiums",
+          "en": "nothing"
+        },
+        {
+          "asks": "immigration",
+          "en": "yes, i'm a citizen"
+        }
+      ]
+    },
+    "case3b_senior_alone_with_medical": {
+      "opening": {
+        "en": "hi, i'm 71 and i live by myself here in tulsa. between rent and my medicines there is nothing left."
+      },
+      "replies": [
+        {
+          "asks": "state",
+          "en": "Oklahoma"
+        },
+        {
+          "asks": "household_size",
+          "en": "just me, 1"
+        },
+        {
+          "asks": "ages",
+          "en": "I'm 71"
+        },
+        {
+          "asks": "income",
+          "en": "I get 1250 a month from social security"
+        },
+        {
+          "asks": "weekly_hours",
+          "en": "I don't work, I'm retired"
+        },
+        {
+          "asks": "rent",
+          "en": "rent is 650"
+        },
+        {
+          "asks": "utilities",
+          "en": "about 140 for lights and gas"
+        },
+        {
+          "asks": "medical_expenses",
+          "en": "about 180 a month for my pills"
+        },
+        {
+          "asks": "health_premiums",
+          "en": "202.90 a month for my medicare part b premium"
+        },
+        {
+          "asks": "immigration",
+          "en": "yes, i'm a citizen"
+        }
+      ]
+    },
+    "case4_mixed_status": {
+      "opening": {
+        "en": "hi, we need help with food. my two kids were born here but my husband and i don't have papers. we live in tulsa."
+      },
+      "replies": [
+        {
+          "asks": "state",
+          "en": "Oklahoma"
+        },
+        {
+          "asks": "household_size",
+          "en": "4 of us"
+        },
+        {
+          "asks": "ages",
+          "en": "I'm 38, my husband is 35, and the kids are 9 and 3"
+        },
+        {
+          "asks": "income",
+          "en": "I make 26,000 a year cleaning houses"
+        },
+        {
+          "asks": "weekly_hours",
+          "en": "40 hours a week"
+        },
+        {
+          "asks": "rent",
+          "en": "rent is 900"
+        },
+        {
+          "asks": "utilities",
+          "en": "utilities are about 170"
+        },
+        {
+          "asks": "pregnancy",
+          "en": "no"
+        },
+        {
+          "asks": "medical_expenses",
+          "en": "no, nothing like that"
+        },
+        {
+          "asks": "health_premiums",
+          "en": "nothing"
+        },
+        {
+          "asks": "immigration",
+          "en": "the kids were born here, but my husband and i don't have papers"
+        }
+      ]
+    },
+    "case5_on_snap_recert_due": {
+      "opening": {
+        "en": "hey, it's me and my son who is 12. we're in tulsa. we already get snap and my renewal letter says it's due in 12 days."
+      },
+      "replies": [
+        {
+          "asks": "state",
+          "en": "Oklahoma"
+        },
+        {
+          "asks": "household_size",
+          "en": "2, me and my son"
+        },
+        {
+          "asks": "ages",
+          "en": "I'm 44 and he's 12"
+        },
+        {
+          "asks": "income",
+          "en": "I make 19,000 a year"
+        },
+        {
+          "asks": "weekly_hours",
+          "en": "40 hours a week"
+        },
+        {
+          "asks": "rent",
+          "en": "rent is 800"
+        },
+        {
+          "asks": "utilities",
+          "en": "about 160 for electric and gas"
+        },
+        {
+          "asks": "pregnancy",
+          "en": "no"
+        },
+        {
+          "asks": "medical_expenses",
+          "en": "no, nothing like that"
+        },
+        {
+          "asks": "health_premiums",
+          "en": "nothing"
+        },
+        {
+          "asks": "immigration",
+          "en": "yes, we're both citizens"
+        }
+      ]
+    }
+  }
+}
